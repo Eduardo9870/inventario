@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<div class="container text-center">
+  <h1>{{titulo}}</h1>
+</div>
+<form method="POST">
+  <table class="table">
+    {{form.as_table}} {% for error in form.password.errors %}
+    <p style="color: red">{{error}}</p>
+    {% endfor %}
+
+    <tr>
+      <td colspan="2">
+        <input
+          type="submit"
+          class="btn btn-success float-end"
+          value="{{titulo}}"
+        />
+        <a href="/bodega" class="btn btn-danger">Volver</a>
+      </td>
+    </tr>
+  </table>
+  {% csrf_token %}
+</form>
+{% endblock content %}

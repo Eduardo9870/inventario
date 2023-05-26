@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Inicio {% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <h1>Bienvenido a mi página </h1>
+    {% if user.is_authenticated %}
+    <p>Usuario: {{ user.username }}</p>
+    <!--Cierre de sesion -->
+    <!-- <a href="{% url 'logout'%}" class="btn btn-danger"> Logout</a> -->
+    <a href="/producto" class="btn btn-success">Producto</a>
+    <a href="bodega" class="btn btn-primary">Bodega</a>
+
+    {% else %}
+    <p>Usuario no autenticado</p>
+    <!--link para login-->
+    <a href="{% url 'login'%}" class="btn btn-success"> Login</a>
+    {% endif %}
+</div>
+
+
+{% endblock %}
