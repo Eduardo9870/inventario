@@ -3,47 +3,43 @@
 {% block title %}
 Bodegas
 {% endblock title %}
-{% block miga1 %}
-Bodegas
-{% endblock miga1 %}
-{% block miga2 %}
-Bodegas
-{% endblock miga2 %}
 <div class="container text-center">
   <h1>{{ titulo }}</h1>
 </div>
 <div class="container">
   {% if bodegas %}
-  <table id="example" class="table table-striped" style="width: 100%">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre de bodega</th>
-        <th>Dirección de bodega</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for bodega in bodegas %}
-      <tr>
-        <td>{{ bodega.id }}</td>
-        <td>{{ bodega.nombreBodega }}</td>
-        <td>{{ bodega.direccionBodega }}</td>
-        <td>
-          <a href="/bodega/edit/{{ bodega.id }}" class="btn btn-warning"
-            ><i class="bi bi-pencil-square"></i> Editar
-          </a>
-          <a href="/bodega/delete/{{ bodega.id }}" class="btn btn-danger"
-            ><i class="bi bi-trash3"></i> Eliminar
-          </a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="card mb-4">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
+          <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Nombre de bodega</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Dirección de bodega</th>
+          <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bodega in bodegas %}
+        <tr>
+          <td class="text-l text-center font-weight-bold mb-0">{{ bodega.id }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ bodega.nombreBodega }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ bodega.direccionBodega }}</td>
+          <td>
+            <a href="/bodega/edit/{{ bodega.id }}" class="btn btn-warning"
+              ><i class="bi bi-pencil-square"></i>
+            </a>
+            <a href="/bodega/delete/{{ bodega.id }}" class="btn btn-danger"
+              ><i class="bi bi-trash3"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   {% else %}
   <div class="alert alert-danger text-center" role="alert">
-    <h1>No hay bodegas registradas</h1>
+    <h1 class="text-warning">No hay bodegas registradas</h1>
   </div>
   {% endif %}
 </div>

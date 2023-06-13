@@ -8,10 +8,6 @@ from django.contrib.auth.views import LoginView
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
 def viewProducto(request):
     productos = Producto.objects.all()
     data = {
