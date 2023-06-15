@@ -13,6 +13,17 @@ class Bodega (models.Model):
 
     def __str__(self):
         return self.nombreBodega
+    
+class Tienda (models.Model):
+    nombreTienda = models.CharField(max_length=50)
+    direccionTienda = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Tienda"
+        verbose_name_plural = "Tiendas"
+
+    def __str__(self):
+        return self.nombretienda
 
 
 class Producto (models. Model):
@@ -33,3 +44,11 @@ class productoBodega (models.Model):
     stock = models.IntegerField()
     id_Producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     id_Bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+
+
+# class registrarse (models.Model):
+#     nombre = models.CharField(max_length=50)
+#     apellido =models.CharField(max_length=50)
+#     usuario = models.CharField(max_length=10)
+#     contraseña = models.CharField(max_length=10)
+#     contrasena2 = models.CharField(max_length=10)
