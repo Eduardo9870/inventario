@@ -31,5 +31,5 @@ urlpatterns = [
     path('addBodega/', addBodega, name='addBodega'),
     path('bodega/delete/<int:id>', deleteBodega, name='deleteBodega'),
     path('bodega/edit/<int:id>', editarBodega, name='editarBodega'),
-    path('bodegas/edit/<int:id>', editarBodega, name='editarBodegas'),
+
 ]
