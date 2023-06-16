@@ -50,7 +50,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="">
+                  <a class="nav-link me-2" href="/registro/">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                     Registrarse
                   </a>
@@ -72,16 +72,13 @@
                 <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">Bienvenido</h3>
                   <h6 class="card-category">
-                    {% if msg %}
-                    <span class="text-danger">{{ msg | safe }}</span>
-                    {% else %}
-                    <span>Ingrese sus credenciales</span>
-                    {% endif %}
-                  </h6>
                 </div>
                 <div class="card-body">
                   <form role="form" method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
+                    {% if error_message %}
+                      <p class="text-danger">{{ error_message }}</p>
+                    {% endif %}
                     <label for="username">Nombre de usuario</label>
                     <div class="mb-3">
                       <input type="text" id="username" name="username" class="form-control" placeholder="Nombre de usuario" aria-label="text" aria-describedby="Text-addon">
@@ -94,11 +91,12 @@
                       <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Iniciar sesión</button>
                     </div>
                   </form>
+                  
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     ¿No estás registrado?
-                    <a href="javascript:;" class="text-info text-gradient font-weight-bold">Regístrate</a>
+                    <a href="/registro/" class="text-info text-gradient font-weight-bold">Regístrate</a>
                   </p>
                   <p class="mb-4 text-sm mx-auto">También puedes iniciar sesión a trabes de estos medios:</p>
                   <button type="button" class="btn btn-facebook btn-icon-only rounded-circle">
