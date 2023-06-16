@@ -37,4 +37,8 @@ urlpatterns = [
     path('agregarTienda/', agregarTienda, name='agregarTienda'),
     path('tienda/delete/<int:id>', deleteTienda, name='deleteTienda'),
     path('tienda/edit/<int:id>', editarTienda, name='editarTienda'),
+    path('devolucion/', viewDevolucion, name='devolucion'),
+    path('agregarDevolucion/', agregarDevolucion, name='agregarDevolucion'),
+    path('devolucion/delete/<int:id>', deleteDevolucion, name='deleteDevolucion'),
+    path('devolucion/edit/<int:id>', editarDevolucion, name='editarDevolucion'),
 ]

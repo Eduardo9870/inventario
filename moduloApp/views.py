@@ -174,3 +174,52 @@ def editarTienda(request, id):
             data['form'] = form
     return render(request, 'formTienda.html', data)
 
+
+
+
+
+
+def viewDevolucion(request):
+    devoluciones = Devolucion.objects.all()
+    data = {
+        'devoluciones': devoluciones,
+        'titulo': 'Devoluciones',
+    }
+    return render(request, 'viewDevolucion.html', data)
+
+
+def agregarDevolucion(request):
+    data = {
+        'titulo': 'Agregar devoluciones',
+        'form': DevolucionModelForm()
+    }
+    if (request.method) == 'POST':
+        formulario = DevolucionModelForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('/devolucion')
+        else:
+            data['form'] = formulario
+    return render(request, 'formDevolucion.html', data)
+
+
+def deleteDevolucion(request, id):
+    devolucion = Devolucion.objects.get(id=id)
+    devolucion.delete()
+    return redirect('/devolucion')
+
+
+def editarDevolucion(request, id):
+    form = Devolucion.objects.get(id=id)
+    data = {
+        'titulo': 'Editar devolucion',
+        'form': DevolucionModelForm(instance=form)
+    }
+    if (request.method == 'POST'):
+        form = DevolucionModelForm(request.POST, instance=form)
+        if (form.is_valid()):
+            form.save()
+            return redirect('/devolucion')
+        else:
+            data['form'] = form
+    return render(request, 'formDevolucion.html', data)

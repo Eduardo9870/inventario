@@ -17,6 +17,7 @@ class Bodega (models.Model):
 class Tienda (models.Model):
     nombreTienda = models.CharField(max_length=50)
     direccionTienda = models.CharField(max_length=100)
+    bodega =models.ForeignKey(Bodega, on_delete= models.CASCADE, null=True)
 
     class Meta:
         verbose_name = "Tienda"
@@ -38,6 +39,20 @@ class Producto (models. Model):
 
     def __str__(self):
         return self.nombreProducto
+    
+
+class Devolucion (models. Model):
+    nombreDevolucion = models.CharField(max_length=50)
+    cantidadDevolucion = models.IntegerField()
+    precioDevolucion = models.IntegerField()
+    motivoDevolucion = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Devolucion"
+        verbose_name_plural = "Devoluciones"
+
+    def __str__(self):
+        return self.nombreDevolucion
 
 
 class productoBodega (models.Model):

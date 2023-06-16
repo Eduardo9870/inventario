@@ -64,3 +64,23 @@ class TiendaModelForm(ModelForm):
 
 class CustomUserCreationForm(UserCreationForm):
     pass 
+
+
+
+class DevolucionForm(forms.Form):
+    nombreDevolucion = forms.CharField(label="Nombre del producto", widget=forms.TextInput(attrs={"class": "form-control"}))
+    cantidadDevolucion = forms.IntegerField(label="Cantidad de producto", widget=forms.NumberInput(attrs={"class": "form-control"}))
+    precioDevolucion = forms.IntegerField(label=" Precio de compra realizada ", widget=forms.NumberInput(attrs={"class": "form-control"}))
+    motivoDevolucion = forms.CharField(label="Motivo de devolución", widget=forms.Textarea(attrs={"class": "form-control"}))
+
+
+class DevolucionModelForm(ModelForm):
+    class Meta:
+        model = Devolucion
+        fields = '__all__'
+        widgets = {
+            'nombreDevolucion': forms.TextInput(attrs={"class": "form-control"}),
+            'cantidadDevolucion': forms.NumberInput(attrs={"class": "form-control"}),
+            'precioDevolucion': forms.NumberInput(attrs={"class": "form-control"}),
+            'motivoDevolucion': forms.Textarea(attrs={"class": "form-control"}),
+        }
