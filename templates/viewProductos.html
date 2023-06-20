@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 {% block title %}
+{% load static %}
+
 Productos
 {% endblock title %}
 {% block content %}
+<!-- Template Main CSS File -->
+<link href="{%static 'css/style.css'%}" rel="stylesheet">
+<!-- CSS datatable -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 <div class="container text-center">
   <h1>{{ titulo }}</h1>
-</div>
+</
 <div class="container">
   {% if productos %}
   <div class="card mb-4">
-    <table class="table align-items-center justify-content-center mb-0">
+    <table id="example" class="table table-striped display" style="width:100%">
       <thead>
         <tr>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">ID</th>
@@ -29,12 +35,8 @@ Productos
           <td class="text-l text-center font-weight-bold mb-0">{{ producto.descripcionProducto }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ producto.bodega }}</td>
           <td>
-            <a href="/producto/edit/{{ producto.id }}" class="btn btn-warning"
-              ><i class="bi bi-pencil-square"></i
-            ></a>
-            <a href="/producto/delete/{{ producto.id }}" class="btn btn-danger"
-              ><i class="bi bi-trash3"></i
-            ></a>
+            <a href="/producto/edit/{{ producto.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+            <a href="/producto/delete/{{ producto.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
           </td>
         </tr>
         {% endfor %}
@@ -48,9 +50,22 @@ Productos
   {% endif %}
 </div>
 <div class="container">
-  <!-- Agregar mascota -->
+  <!-- Agregar productos -->
   <a href="/add" class="btn btn-success">Agregar productos</a>
   <!-- Volver a la derecha -->
   <a href="/" class="btn btn-primary float-end">Volver</a>
 </div>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<!-- JS DataTable -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<!-- Inicialización JS -->
+<script>
+  $(document).ready(function () {
+    $('#example').DataTable();
+  });
+</script>
+
 {% endblock content %}

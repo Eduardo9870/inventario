@@ -6,7 +6,8 @@ from moduloApp.models import *
 from moduloApp.forms import *
 from django.contrib.auth.views import LoginView
 # Create your views here.
-
+from .forms import BodegaForm
+from .models import Bodega
 
 def viewProducto(request):
     productos = Producto.objects.all()
@@ -20,10 +21,10 @@ def viewProducto(request):
 def addProducto(request):
     data = {
         'titulo': 'Agregar productos',
-        'form': ProductoForm()
+        'form': ProductoModelForm()
     }
     if (request.method) == 'POST':
-        formulario = ProductoForm(request.POST)
+        formulario = ProductoModelForm(request.POST)
         if formulario.is_valid():
             formulario.save()
             return redirect('/producto')
@@ -42,10 +43,10 @@ def editarProducto(request, id):
     form = Producto.objects.get(id=id)
     data = {
         'titulo': 'Editar productos',
-        'form': ProductoForm(instance=form)
+        'form': ProductoModelForm(instance=form)
     }
     if (request.method == 'POST'):
-        form = ProductoForm(request.POST, instance=form)
+        form = ProductoModelForm(request.POST, instance=form)
         if (form.is_valid()):
             form.save()
             return redirect('/producto')
@@ -68,10 +69,10 @@ def viewBodega(request):
 def addBodega(request):
     data = {
         'titulo': 'Agregar Bodega',
-        'form': BodegaForm()
+        'form': BodegaModelForm()
     }
     if (request.method) == 'POST':
-        formulario = BodegaForm(request.POST)
+        formulario = BodegaModelForm(request.POST)
         if formulario.is_valid():
             formulario.save()
             return redirect('/bodega')
@@ -90,10 +91,10 @@ def editarBodega(request, id):
     form = Bodega.objects.get(id=id)
     data = {
         'titulo': 'Editar Bodega',
-        'form': BodegaForm(instance=form)
+        'form': BodegaModelForm(instance=form)
     }
     if (request.method == 'POST'):
-        form = BodegaForm(request.POST, instance=form)
+        form = BodegaModelForm(request.POST, instance=form)
         if (form.is_valid()):
             form.save()
             return redirect('/bodega')
