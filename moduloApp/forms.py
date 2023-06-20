@@ -43,3 +43,18 @@ class BodegaModelForm(ModelForm):
 
 class ProductoBodegaForm(forms.Form):
     stock = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
+
+
+class categoriaForm(forms.Form):
+    nombreCategoria = forms.CharField(label="nombreCategoria", widget=forms.TextInput(attrs={"class": "form-control"}))
+    descripcion = forms.CharField(label="Descripción ", widget=forms.Textarea(attrs={"class": "form-control"}))
+
+
+class categoriaModelForm(ModelForm):
+    class Meta:
+        model = Categoria
+        fields = '__all__'
+        widgets = {
+            'nombreCategoria': forms.TextInput(attrs={"class": "form-control"}),
+            'descripcion': forms.Textarea(attrs={"class": "form-control"}),
+        }

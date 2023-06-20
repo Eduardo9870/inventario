@@ -23,6 +23,7 @@ Productos
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripción del producto</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Bodega</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">categoria</th>
           <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
         </tr>
       </thead>
@@ -34,6 +35,7 @@ Productos
           <td class="text-l text-center font-weight-bold mb-0">{{ producto.cantidad }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ producto.descripcionProducto }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ producto.bodega }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ producto.categoria }}</td>
           <td>
             <a href="/producto/edit/{{ producto.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
             <a href="/producto/delete/{{ producto.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>

@@ -17,6 +17,48 @@ def viewProducto(request):
     }
     return render(request, 'viewProductos.html', data)
 
+def viewCategoria(request):
+    categorias = Categoria.objects.all()
+    data = {
+        'categorias': categorias,
+        'titulo': 'categorias',
+    }
+    return render(request, 'viewCategoria.html', data)
+
+def addCategoria(request):
+    data = {
+        'titulo': 'Agregar categoria',
+        'form': categoriaModelForm()
+    }
+    if (request.method) == 'POST':
+        formulario = categoriaModelForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('/categoria')
+        else:
+            data['form'] = formulario
+    return render(request, 'formCategoria.html', data)
+
+def editarCategoria(request, id):
+    form = Categoria.objects.get(id=id)
+    data = {
+        'titulo': 'Editar categoria',
+        'form': categoriaModelForm(instance=form)
+    }
+    if (request.method == 'POST'):
+        form = categoriaModelForm(request.POST, instance=form)
+        if (form.is_valid()):
+            form.save()
+            return redirect('/categoria')
+        else:
+            data['form'] = form
+    return render(request, 'formCategoria.html', data)
+
+def deleteCategoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+    categoria.delete()
+    return redirect('/categoria')
+
 
 def addProducto(request):
     data = {

@@ -31,5 +31,10 @@ urlpatterns = [
     path('addBodega/', addBodega, name='addBodega'),
     path('bodega/delete/<int:id>', deleteBodega, name='deleteBodega'),
     path('bodega/edit/<int:id>', editarBodega, name='editarBodega'),
+    path('categoria/', viewCategoria, name='categoria'),
+    path('addCategoria/', addCategoria, name='addCateoria'),
+    path('categoria/edit/<int:id>', editarCategoria, name='editarCategoria'),
+    path('categoria/delete/<int:id>', deleteCategoria, name='deleteCategoria'),
+    
 
 ]
