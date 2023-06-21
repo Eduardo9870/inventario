@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from django.core.validators import RegexValidator
 from moduloApp.models import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class TipoProductoForm(forms.Form):
@@ -43,3 +45,20 @@ class BodegaModelForm(ModelForm):
 
 class ProductoBodegaForm(forms.Form):
     stock = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
+
+class TiendaForm(forms.Form):
+    nombreTienda = forms.CharField(label="Nombre de la bodega" ,widget=forms.TextInput(attrs={"class": "form-control"}))
+    direccionTienda = forms.CharField(label="Dirección de la bodega" ,widget=forms.TextInput(attrs={"class": "form-control"}))
+
+
+class TiendaModelForm(ModelForm):
+    class Meta:
+        model = Tienda
+        fields = '__all__'
+        widgets = {
+            'nombreTienda': forms.TextInput(attrs={"class": "form-control"}),
+            'direccionTienda': forms.TextInput(attrs={"class": "form-control"}),
+        }
+
+class CustomUserCreationForm(UserCreationForm):
+    pass 

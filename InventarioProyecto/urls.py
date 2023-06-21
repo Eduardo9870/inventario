@@ -23,6 +23,7 @@ urlpatterns = [
     path('cuenta/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     # path('login/', CustomLoginView.as_view(), name='login'),
+
     path('producto/', viewProducto, name='producto'),
     path('add/', addProducto, name='add'),
     path('producto/delete/<int:id>', deleteProducto, name='deleteProducto'),
@@ -31,5 +32,13 @@ urlpatterns = [
     path('addBodega/', addBodega, name='addBodega'),
     path('bodega/delete/<int:id>', deleteBodega, name='deleteBodega'),
     path('bodega/edit/<int:id>', editarBodega, name='editarBodega'),
+<<<<<<< HEAD
     path('registro/', nuevo_usuario, name='registrar')
+=======
+    path('registro/', viewRegistro, name='registro'),
+    path('tienda/', viewTienda, name='tienda'),
+    path('agregarTienda/', agregarTienda, name='agregarTienda'),
+    path('tienda/delete/<int:id>', deleteTienda, name='deleteTienda'),
+    path('tienda/edit/<int:id>', editarTienda, name='editarTienda'),
+>>>>>>> 4fa2aadd074c4056a40886116b507a822a6a4869
 ]
