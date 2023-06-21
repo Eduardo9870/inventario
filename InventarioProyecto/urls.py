@@ -31,4 +31,5 @@ urlpatterns = [
     path('addBodega/', addBodega, name='addBodega'),
     path('bodega/delete/<int:id>', deleteBodega, name='deleteBodega'),
     path('bodega/edit/<int:id>', editarBodega, name='editarBodega'),
+    path('registro/', nuevo_usuario, name='registrar')
 ]
