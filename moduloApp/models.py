@@ -13,11 +13,12 @@ class Bodega (models.Model):
 
     def __str__(self):
         return self.nombreBodega
-    
+
+
 class Tienda (models.Model):
     nombreTienda = models.CharField(max_length=50)
     direccionTienda = models.CharField(max_length=100)
-    bodega =models.ForeignKey(Bodega, on_delete= models.CASCADE, null=True)
+    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = "Tienda"
@@ -26,12 +27,23 @@ class Tienda (models.Model):
     def __str__(self):
         return self.nombretienda
 
+class Categoria (models.Model):
+    nombreCategoria = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+
+    def __str__(self):
+        return self.nombreCategoria
 
 class Producto (models. Model):
     nombreProducto = models.CharField(max_length=50)
     cantidad = models.IntegerField()
     descripcionProducto = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = "Producto"
@@ -39,7 +51,7 @@ class Producto (models. Model):
 
     def __str__(self):
         return self.nombreProducto
-    
+
 
 class Devolucion (models. Model):
     nombreDevolucion = models.CharField(max_length=50)
@@ -67,3 +79,16 @@ class productoBodega (models.Model):
 #     usuario = models.CharField(max_length=10)
 #     contraseña = models.CharField(max_length=10)
 #     contrasena2 = models.CharField(max_length=10)
+
+
+class Entrada (models.Model):
+    fecha_entrada = models.DateField()
+    descripcion_entrada = models.CharField(max_length=100)
+    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+
+
+class Salida (models.Model):
+    fecha_salida = models.DateField()
+    descripcion_salida = models.CharField(max_length=100)
+    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    

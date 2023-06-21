@@ -32,13 +32,32 @@ urlpatterns = [
     path('addBodega/', addBodega, name='addBodega'),
     path('bodega/delete/<int:id>', deleteBodega, name='deleteBodega'),
     path('bodega/edit/<int:id>', editarBodega, name='editarBodega'),
+    
     path('registro/', viewRegistro, name='registro'),
+
     path('tienda/', viewTienda, name='tienda'),
     path('agregarTienda/', agregarTienda, name='agregarTienda'),
     path('tienda/delete/<int:id>', deleteTienda, name='deleteTienda'),
     path('tienda/edit/<int:id>', editarTienda, name='editarTienda'),
+
     path('devolucion/', viewDevolucion, name='devolucion'),
     path('agregarDevolucion/', agregarDevolucion, name='agregarDevolucion'),
     path('devolucion/delete/<int:id>', deleteDevolucion, name='deleteDevolucion'),
     path('devolucion/edit/<int:id>', editarDevolucion, name='editarDevolucion'),
+
+    path('categoria/', viewCategoria, name='categoria'),
+    path('agregarCategoria/', agregarCategoria, name='agregarCategoria'),
+    path('categoria/edit/<int:id>', editarCategoria, name='editarCategoria'),
+    path('categoria/delete/<int:id>', deleteCategoria, name='deleteCategoria'),
+
+    path('entrada/', viewEntrada, name='entrada'),
+    path('agregarEntrada/', agregarEntrada, name='agregarEntrada'),
+    path('entrada/delete/<int:id>', deleteEntrada, name='deleteEntrada'),
+    path('entrada/edit/<int:id>', editarEntrada, name='editarEntrada'),
+
+    path('salida/', viewSalida, name='salida'),
+    path('agregarSalida/', agregarSalida, name='agregarSalida'),
+    path('salida/delete/<int:id>', deleteSalida, name='deleteSalida'),
+    path('salida/edit/<int:id>', editarSalida, name='editarSalida'),
+
 ]
