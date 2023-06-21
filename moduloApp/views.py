@@ -16,6 +16,29 @@ def viewProducto(request):
         'titulo': 'Productos',
     }
     return render(request, 'viewProductos.html', data)
+    
+def viewEntrada_Producto(request):
+    Entrada_Productos = Entrada_Producto.objects.all()
+    data = {
+        'Entrada_Productos': Entrada_Productos,
+        'titulo': 'Entrada_Productos',
+    }
+    return render(request, 'viewEntradaProducto.html', data)
+
+def addEntrada(request):
+    data = {
+        'titulo': 'Agregar Entrada',
+        'form': Entrada_ProductoModelForm()
+    }
+    if (request.method) == 'POST':
+        formulario = Entrada_ProductoModelForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('/entradaProducto')
+        else:
+            data['form'] = formulario
+    return render(request, 'formEntradaProductos.html', data)
+
 
 def viewCategoria(request):
     categorias = Categoria.objects.all()

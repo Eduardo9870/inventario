@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}
+Bodegas
+{% endblock title %}
+{% block content %}
+{% load static %}
+<div class="container text-center">
+  <h1>{{ titulo }}</h1>
+</div>
+<div class="container">
+  {% if Entrada_Productos %}
+  <div class="card mb-4">
+    <table id="bodegas-table" class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
+          <th class="text-center text-secondary text-xl font-weight-bolder ps-2">fecha_entrada</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">descripcion_entrada</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">bodega</th>
+          <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Entrada_Producto in Entrada_Productos %}
+
+        <tr>
+          <td class="text-l text-center font-weight-bold mb-0">{{ Entrada_Producto.id }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ Entrada_Producto.fecha_entrada }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ Entrada_Producto.descripcion_entrada }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ Entrada_Producto.bodega }}</td>
+          <td>
+            <a href="/bodega/edit/{{ bodega.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i>
+            </a>
+            <a href="/bodega/delete/{{ bodega.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="alert alert-danger text-center" role="alert">
+    <h1 class="text-warning">No hay entradas registradas</h1>
+  </div>
+  {% endif %}
+</div>
+<div class="container">
+  <!-- Agregar bodega -->
+  <a href="/addEntrada" class="btn btn-success">Agregar entrada</a>
+  <!-- Volver a la derecha -->
+  <a href="/entradaProducto" class="btn btn-primary float-end">Volver</a>
+</div>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<!-- JS DataTable -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<!-- Inicialización JS -->
+<script>
+  $(document).ready(function () {
+    $('#bodegas-table').DataTable();
+  });
+</script>
+
+{% endblock content %}

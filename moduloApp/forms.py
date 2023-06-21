@@ -58,3 +58,19 @@ class categoriaModelForm(ModelForm):
             'nombreCategoria': forms.TextInput(attrs={"class": "form-control"}),
             'descripcion': forms.Textarea(attrs={"class": "form-control"}),
         }
+
+class Entrada_ProductoForm(forms.Form):
+    fecha_entrada = forms.CharField(label="Nombre del producto", widget=forms.TextInput(attrs={"class": "form-control"}))
+    descripcion_entrada = forms.IntegerField(label="Cantidad de producto", widget=forms.NumberInput(attrs={"class": "form-control"}))
+
+
+
+class Entrada_ProductoModelForm(ModelForm):
+    class Meta:
+        model = Entrada_Producto
+        fields = '__all__'
+        widgets = {
+            'fecha_entrada': forms.TextInput(attrs={"class": "form-control"}),
+            'descripcion_entrada': forms.NumberInput(attrs={"class": "form-control"}),
+ 
+        }

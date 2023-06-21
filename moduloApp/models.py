@@ -24,8 +24,8 @@ class Bodega (models.Model):
         return self.nombreBodega
     
 class Entrada_Producto (models.Model):
-    fechaEntrada = models.DateField()
-    descripcionEntrada = models.CharField(max_length=100)
+    fecha_entrada = models.DateField()
+    descripcion_entrada = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
 class Salida_Producto(models.Model):
