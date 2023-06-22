@@ -7,6 +7,12 @@ from moduloApp.forms import *
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from io import BytesIO
+
 # Create your views here.
 
 
@@ -255,6 +261,7 @@ def editarCategoria(request, id):
             data['form'] = form
     return render(request, 'formCategoria.html', data)
 
+
 def deleteCategoria(request, id):
     categoria = Categoria.objects.get(id=id)
     categoria.delete()
@@ -269,6 +276,7 @@ def viewEntrada(request):
     }
     return render(request, 'viewEntradaProducto.html', data)
 
+
 def agregarEntrada(request):
     data = {
         'titulo': 'Agregar Entrada',
@@ -282,6 +290,7 @@ def agregarEntrada(request):
         else:
             data['form'] = formulario
     return render(request, 'formEntradaProductos.html', data)
+
 
 def editarEntrada(request, id):
     form = Entrada.objects.get(id=id)
@@ -305,8 +314,6 @@ def deleteEntrada(request, id):
     return redirect('/entrada')
 
 
-
-
 def viewSalida(request):
     salidas = Salida.objects.all()
     data = {
@@ -314,6 +321,7 @@ def viewSalida(request):
         'titulo': 'Salida Producto',
     }
     return render(request, 'viewSalidaProducto.html', data)
+
 
 def agregarSalida(request):
     data = {
@@ -328,6 +336,7 @@ def agregarSalida(request):
         else:
             data['form'] = formulario
     return render(request, 'formSalidaProductos.html', data)
+
 
 def editarSalida(request, id):
     form = Salida.objects.get(id=id)
@@ -349,3 +358,61 @@ def deleteSalida(request, id):
     salida = Salida.objects.get(id=id)
     salida.delete()
     return redirect('/salida')
+
+
+def generar_reporte(request):
+    # Obtener los productos de la base de datos
+    productos = Producto.objects.all()
+    titulo = "Reporte de Productos"
+
+    # Renderizar el template con los datos
+    reporte_html = render_to_string('reporte.html', {'productos': productos, 'titulo': titulo})
+
+    # Crear una respuesta HTTP con el contenido HTML
+    response = HttpResponse(content_type='text/html')
+    response.write(reporte_html)
+
+    return response
+
+def descargar_reporte_pdf(request):
+    # Obtener los datos de la base de datos
+    productos = Producto.objects.all()
+
+    # Crear un objeto BytesIO para almacenar el PDF generado
+    buffer = BytesIO()
+
+    # Crear el objeto PDF utilizando reportlab
+    p = canvas.Canvas(buffer)
+
+    # Agregar el título al PDF
+    titulo = "Reporte de Productos"
+    p.setFont("Helvetica-Bold", 16)
+    p.drawCentredString(300, 750, titulo)
+
+    # Agregar los datos de los productos al PDF
+    y = 700
+    for producto in productos:
+        p.drawString(100, y, producto.nombreProducto)
+        p.drawString(250, y, str(producto.cantidad))
+        p.drawString(400, y, producto.descripcionProducto)
+        y -= 20
+
+    # Guardar el contenido del PDF
+    p.showPage()
+    p.save()
+
+    # Obtener el contenido del BytesIO y crear la respuesta HTTP
+    buffer.seek(0)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="reporte_productos.pdf"'
+    response.write(buffer.getvalue())
+
+    return response
+
+def mostrar_reporte(request):
+    # Obtener los productos de la base de datos
+    productos = Producto.objects.all()
+    titulo = "Reporte de Productos"
+
+    return render(request, 'reporte.html', {'productos': productos, 'titulo': titulo})
+

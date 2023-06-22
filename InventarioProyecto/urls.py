@@ -60,4 +60,9 @@ urlpatterns = [
     path('salida/delete/<int:id>', deleteSalida, name='deleteSalida'),
     path('salida/edit/<int:id>', editarSalida, name='editarSalida'),
 
+    path('reporte/', generar_reporte, name='mostrar_reporte'),
+    path('reporte/descargar/', descargar_reporte_pdf, name='descargar_reporte'),
+    path('reporte/', mostrar_reporte, name='mostrar_reporte'),
+    path('reporte/descargar/', descargar_reporte_pdf, name='descargar_reporte'),
+   
 ]

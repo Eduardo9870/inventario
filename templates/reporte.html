@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+<div class="container text-center">
+    <h1>{{ titulo }}</h1>
+</div>
+
+<div class="container">
+    {% if productos %}
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Nombre del Producto</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad</th>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.nombreProducto }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.cantidad }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.descripcionProducto }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay productos registrados</h1>
+    </div>
+    {% endif %}
+</div>
+
+<div class="container">
+    <a href="{% url 'descargar_reporte' %}" class="btn btn-primary">Descargar PDF</a>
+    <a href="/" class="btn btn-primary float-end">Volver</a>
+</div>
+
+<!-- JS DataTable -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<!-- Inicialización JS -->
+<script>
+    $(document).ready(function () {
+        $('#productos-table').DataTable();
+    });
+</script>
+{% endblock content %}
