@@ -51,13 +51,13 @@ class BodegaModelForm(ModelForm):
 
 
 class ProductoBodegaForm(forms.Form):
-<<<<<<< HEAD
+
     stock = forms.IntegerField(
         widget=forms.NumberInput(attrs={"class": "form-control"}))
 
-=======
+
     stock = forms.IntegerField(widget=forms.NumberInput(attrs={"class": "form-control"}))
->>>>>>> main
+
 
 class TiendaForm(forms.Form):
     nombreTienda = forms.CharField(
