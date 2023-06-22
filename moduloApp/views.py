@@ -39,6 +39,21 @@ def addEntrada(request):
             data['form'] = formulario
     return render(request, 'formEntradaProductos.html', data)
 
+def editarEntradaProducto(request, id):
+    form = Entrada_Producto.objects.get(id=id)
+    data = {
+        'titulo': 'Editar entrada ',
+        'form': Entrada_ProductoModelForm(instance=form)
+    }
+    if (request.method == 'POST'):
+        form = Entrada_ProductoModelForm(request.POST, instance=form)
+        if (form.is_valid()):
+            form.save()
+            return redirect('/entradaProducto')
+        else:
+            data['form'] = form
+    return render(request, 'formEntradaProducto.html', data)
+
 
 def viewCategoria(request):
     categorias = Categoria.objects.all()

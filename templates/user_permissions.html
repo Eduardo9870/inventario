@@ -1,0 +1,8 @@
+<h1>Permisos de Usuario</h1>
+<ul>
+  {% for permission in permissions %}
+    <li>{{ permission.name }}</li>
+  {% empty %}
+    <li>No se encontraron permisos para este usuario.</li>
+  {% endfor %}
+</ul>

@@ -37,5 +37,7 @@ urlpatterns = [
     path('categoria/delete/<int:id>', deleteCategoria, name='deleteCategoria'),
     path('entradaProducto/', viewEntrada_Producto, name='entradaProducto'),
     path('addEntrada/', addEntrada, name='addEntrada'),
+    path('entradaProducto/edit/<int:id>', editarEntradaProducto, name='editarEntradaProducto'),
+
 
 ]
