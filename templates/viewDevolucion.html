@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}
+{% load static %}
+Devolución de Productos
+{% endblock title %}
+{% block content %}
+
+<!-- CSS datatable -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<div class="container text-center">
+  <h1>{{ titulo }}</h1>
+</div>
+<div class="container">
+  {% if devoluciones %}
+  <div class="card mb-4">
+    <table id="devoluciones-table" class="table align-items-center justify-content-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">ID</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Nombre del producto</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Precio del producto</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Motivo Devolución</th>
+          <th class="text-center text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for devolucion in devoluciones %}
+        <tr>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.id }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.nombreDevolucion }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.cantidadDevolucion }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.precioDevolucion }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.motivoDevolucion }}</td>
+          <td>
+            <a href="/devolucion/editar/{{ devolucion.id }}" class="btn btn-warning"><i
+                class="bi bi-pencil-square"></i></a>
+            <a href="/devolucion/delete/{{ devolucion.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="alert alert-danger text-center" role="alert">
+    <h1 class="text-warning">No hay devoluciones registrados</h1>
+  </div>
+  {% endif %}
+</div>
+<div class="container">
+  <!-- Agregar mascota -->
+  <a href="/agregarDevolucion" class="btn btn-success">Agregar devoluciones</a>
+  <!-- Volver a la derecha -->
+  <a href="/" class="btn btn-primary float-end">Volver</a>
+</div>
+
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<!-- JS DataTable -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<!-- Inicialización JS -->
+<script>
+  $(document).ready(function () {
+    $('#devoluciones-table').DataTable();
+  });
+</script>
+
+{% endblock content %}

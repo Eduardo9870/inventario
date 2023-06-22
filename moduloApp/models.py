@@ -33,12 +33,13 @@ class Salida_Producto(models.Model):
     descripcionSalida = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
+
 class Devolucion_Producto(models.Model):
     fechaDevolucion = models.DateField()
     descripcionSalida = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
-class Tienda(models.Model):
+class Tienda (models.Model):
     nombreTienda = models.CharField(max_length=50)
     direccionTienda = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
@@ -73,11 +74,23 @@ class Trabajador(models.Model):
 
     def __str__(self):
         return self.nombreTrabajador
+
+class Categoria (models.Model):
+    nombreCategoria = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+
+    def __str__(self):
+        return self.nombreCategoria
 class Producto (models. Model):
     nombreProducto = models.CharField(max_length=50)
     cantidad = models.IntegerField()
     descripcionProducto = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = "Producto"
@@ -87,7 +100,42 @@ class Producto (models. Model):
         return self.nombreProducto
 
 
+class Devolucion (models. Model):
+    nombreDevolucion = models.CharField(max_length=50)
+    cantidadDevolucion = models.IntegerField()
+    precioDevolucion = models.IntegerField()
+    motivoDevolucion = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Devolucion"
+        verbose_name_plural = "Devoluciones"
+
+    def __str__(self):
+        return self.nombreDevolucion
+
+
 class productoBodega (models.Model):
     stock = models.IntegerField()
     id_Producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     id_Bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+
+
+# class registrarse (models.Model):
+#     nombre = models.CharField(max_length=50)
+#     apellido =models.CharField(max_length=50)
+#     usuario = models.CharField(max_length=10)
+#     contraseña = models.CharField(max_length=10)
+#     contrasena2 = models.CharField(max_length=10)
+
+
+class Entrada (models.Model):
+    fecha_entrada = models.DateField()
+    descripcion_entrada = models.CharField(max_length=100)
+    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+
+
+class Salida (models.Model):
+    fecha_salida = models.DateField()
+    descripcion_salida = models.CharField(max_length=100)
+    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    
