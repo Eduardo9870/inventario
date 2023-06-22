@@ -363,10 +363,12 @@ def deleteSalida(request, id):
 def generar_reporte(request):
     # Obtener los productos de la base de datos
     productos = Producto.objects.all()
-    titulo = "Reporte de Productos"
+    bodegas = Bodega.objects.all()
+    tiendas = Tienda.objects.all()
+    titulo = "Reportes "
 
     # Renderizar el template con los datos
-    reporte_html = render_to_string('reporte.html', {'productos': productos, 'titulo': titulo})
+    reporte_html = render_to_string('reporte.html', {'productos': productos, 'bodegas':bodegas, 'tiendas': tiendas, 'titulo': titulo})
 
     # Crear una respuesta HTTP con el contenido HTML
     response = HttpResponse(content_type='text/html')
@@ -377,6 +379,8 @@ def generar_reporte(request):
 def descargar_reporte_pdf(request):
     # Obtener los datos de la base de datos
     productos = Producto.objects.all()
+    bodegas = Bodega.objects.all()
+    tiendas = Tienda.objects.all()
 
     # Crear un objeto BytesIO para almacenar el PDF generado
     buffer = BytesIO()
@@ -385,16 +389,26 @@ def descargar_reporte_pdf(request):
     p = canvas.Canvas(buffer)
 
     # Agregar el título al PDF
-    titulo = "Reporte de Productos"
+    titulo = "Reportes Generales"
     p.setFont("Helvetica-Bold", 16)
     p.drawCentredString(300, 750, titulo)
 
     # Agregar los datos de los productos al PDF
     y = 700
     for producto in productos:
-        p.drawString(100, y, producto.nombreProducto)
-        p.drawString(250, y, str(producto.cantidad))
-        p.drawString(400, y, producto.descripcionProducto)
+        p.drawString(50, y, producto.nombreProducto)
+        p.drawString(150, y, str(producto.cantidad))
+        p.drawString(250, y, producto.descripcionProducto)
+        y -= 20
+
+    for bodega in bodegas:
+        p.drawString(60, y, bodega.nombreBodega)
+        p.drawString(300, y, str(bodega.direccionBodega))
+        y -= 20
+
+    for tienda in tiendas:
+        p.drawString(70, y, tienda.nombreTienda)
+        p.drawString(400, y, str(tienda.direccionTienda))
         y -= 20
 
     # Guardar el contenido del PDF
@@ -412,7 +426,11 @@ def descargar_reporte_pdf(request):
 def mostrar_reporte(request):
     # Obtener los productos de la base de datos
     productos = Producto.objects.all()
-    titulo = "Reporte de Productos"
+    bodegas = Bodega.objects.all()
+    tiendas = Tienda.objects.all()
 
-    return render(request, 'reporte.html', {'productos': productos, 'titulo': titulo})
+    titulo = "Reportes"
+
+
+    return render(request, 'reporte.html', {'productos': productos, 'bodegas':bodegas, 'tiendas':tiendas, 'titulo': titulo})
 
