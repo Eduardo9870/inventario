@@ -1,11 +1,43 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect
 from moduloApp.models import *
 from moduloApp.forms import *
 from django.contrib.auth.views import LoginView
+<<<<<<< HEAD
 from django.contrib.auth import authenticate, login
+=======
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+
+def nuevo_usuario(request):
+    if request.method == 'POST':
+        formulario = UserCreationForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('/')
+    else:
+        formulario = UserCreationForm()
+    return render(request, 'registration/registro.html', {'formulario': formulario})
+
+def ingresar(request):
+    if request.method == 'POST':
+        formulario = AuthenticationForm(request.POST)
+        if formulario.is_valid():
+            usuario = formulario.cleaned_data.get('username')
+            clave = formulario.cleaned_data.get('password')
+            acceso = authenticate(username=usuario, password=clave)
+            if acceso is not None:
+                if acceso.is_active:
+                    login(request, acceso)
+                    return HttpResponseRedirect('/home')
+    else:
+        formulario = AuthenticationForm()
+    return render(request, 'login.html', {'formulario': formulario})
+
+
+from django.contrib.auth import authenticate, login 
+>>>>>>> 557150335f3cb00a9d07b800744995134f011b84
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.http import HttpResponse
