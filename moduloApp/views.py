@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from moduloApp.models import *
 from moduloApp.forms import *
 from django.contrib.auth.views import LoginView
-<<<<<<< HEAD
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -34,11 +33,9 @@ def ingresar(request):
     return render(request, 'login.html', {'formulario': formulario})
 
 
-=======
 from django.contrib.auth import authenticate, login 
 from django.contrib import messages
 # Create your views here.
->>>>>>> 4fa2aadd074c4056a40886116b507a822a6a4869
 
 def viewProducto(request):
     productos = Producto.objects.all()
