@@ -35,7 +35,6 @@ class Tienda (models.Model):
     def __str__(self):
         return self.nombretienda
 
-
 class Salida_Producto(models.Model):
     fechaSalida = models.DateField()
     descripcionSalida = models.CharField(max_length=100)
@@ -95,7 +94,6 @@ class Producto (models. Model):
     def __str__(self):
         return self.nombreProducto
 
-
 class Devolucion (models. Model):
     nombreDevolucion = models.CharField(max_length=50)
     cantidadDevolucion = models.IntegerField()
@@ -108,7 +106,6 @@ class Devolucion (models. Model):
 
     def __str__(self):
         return self.nombreDevolucion
-
 
 class productoBodega (models.Model):
     stock = models.IntegerField()
@@ -128,7 +125,6 @@ class Entrada (models.Model):
     fecha_entrada = models.DateField()
     descripcion_entrada = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
-
 
 class Salida (models.Model):
     fecha_salida = models.DateField()
