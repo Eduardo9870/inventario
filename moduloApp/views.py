@@ -2,13 +2,12 @@ from django.shortcuts import render, redirect
 from moduloApp.models import *
 from moduloApp.forms import *
 from django.contrib.auth.views import LoginView
-<<<<<<< HEAD
 from django.contrib.auth import authenticate, login
-=======
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 
 def nuevo_usuario(request):
     if request.method == 'POST':
@@ -37,7 +36,6 @@ def ingresar(request):
 
 
 from django.contrib.auth import authenticate, login 
->>>>>>> 557150335f3cb00a9d07b800744995134f011b84
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -93,7 +91,11 @@ def editarProducto(request, id):
             data['form'] = form
     return render(request, 'formProductos.html', data)
 
+def is_admin_or_bodeguero(user):
+    return user.is_superuser or user.groups.filter(name='Bodeguero').exists()
 
+@login_required
+@user_passes_test(is_admin_or_bodeguero)
 def viewBodega(request):
     bodegas = Bodega.objects.all()
     data = {
