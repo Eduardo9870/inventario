@@ -35,12 +35,7 @@ class Tienda (models.Model):
     def __str__(self):
         return self.nombretienda
 
-class Salida_Producto(models.Model):
-    fechaSalida = models.DateField()
-    descripcionSalida = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
-class Devolucion_Producto(models.Model):
     fechaDevolucion = models.DateField()
     descripcionSalida = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
