@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,33 +25,7 @@ class Bodega(models.Model):
 
     def __str__(self):
         return self.nombreBodega
-<<<<<<< HEAD
-    
-class Tienda (models.Model):
-    nombreTienda = models.CharField(max_length=50)
-    direccionTienda = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
-    class Meta:
-        verbose_name = "Tienda"
-        verbose_name_plural = "Tiendas"
-
-    def __str__(self):
-        return self.nombretienda
-
-
-    fechaDevolucion = models.DateField()
-    descripcionSalida = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
-=======
-
-
-class Entrada_Producto(models.Model):
-    fechaEntrada = models.DateField()
-    descripcionEntrada = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
-
->>>>>>> 557150335f3cb00a9d07b800744995134f011b84
 
 class Tienda(models.Model):
     nombreTienda = models.CharField(max_length=50)
@@ -65,42 +40,10 @@ class Tienda(models.Model):
         return self.nombreTienda
 
 
-class Salida_Producto(models.Model):
-    fechaSalida = models.DateField()
-    descripcionSalida = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
 
-class Devolucion_Producto(models.Model):
-    fechaDevolucion = models.DateField()
-    descripcionSalida = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
 
-class Rol(models.Model):
-    nombreRol = models.CharField(max_length=50)
-    descripcionRol = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name = "Rol"
-        verbose_name_plural = "Roles"
-
-    def __str__(self):
-        return self.nombreRol
-
-
-class Trabajador(models.Model):
-    nombreTrabajador = models.CharField(max_length=50)
-    contraseñaTrabajador = models.CharField(max_length=50)
-    rol = models.ForeignKey(Rol, on_delete=models.CASCADE, null=True)
-    tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE, null=True)
-
-    class Meta:
-        verbose_name = "Trabajador"
-        verbose_name_plural = "Trabajadores"
-
-    def __str__(self):
-        return self.nombreTrabajador
 
 
 class Producto(models.Model):
@@ -117,12 +60,8 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombreProducto
 
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
->>>>>>> devYesenia
-class Devolucion (models. Model):
+class Devolucion(models.Model):
     nombreDevolucion = models.CharField(max_length=50)
     cantidadDevolucion = models.IntegerField()
     precioDevolucion = models.IntegerField()
@@ -135,33 +74,39 @@ class Devolucion (models. Model):
     def __str__(self):
         return self.nombreDevolucion
 
-class productoBodega (models.Model):
+
+class ProductoBodega(models.Model):
     stock = models.IntegerField()
     id_Producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     id_Bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
 
-# class registrarse (models.Model):
-#     nombre = models.CharField(max_length=50)
-#     apellido =models.CharField(max_length=50)
-#     usuario = models.CharField(max_length=10)
-#     contraseña = models.CharField(max_length=10)
-#     contrasena2 = models.CharField(max_length=10)
-
-
-class Entrada (models.Model):
+class Entrada(models.Model):
     fecha_entrada = models.DateField()
     descripcion_entrada = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
 
-class Salida (models.Model):
+
+class Salida(models.Model):
     fecha_salida = models.DateField()
     descripcion_salida = models.CharField(max_length=100)
     bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
-    
-=======
-class productoBodega(models.Model):
-    stock = models.IntegerField()
-    id_Producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
-    id_Bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
->>>>>>> 557150335f3cb00a9d07b800744995134f011b84
+
+
+class Rol(models.Model):
+
+    USUARIO = 'US'
+
+    ADMIN = 'AD'
+
+    ROLES_CHOICES = [
+
+        (USUARIO, 'Usuario'),
+
+        (ADMIN, 'Administrador'),
+
+    ]
+
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    rol = models.CharField(max_length=2, choices=ROLES_CHOICES, default=USUARIO)

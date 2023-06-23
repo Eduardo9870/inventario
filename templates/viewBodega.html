@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block title %}
 Bodegas
-{% endblock title %}
+{% endblock %}
 {% block content %}
 {% load static %}
 <div class="container text-center">
   <h1>{{ titulo }}</h1>
 </div>
+{% if user.is_superuser or is_bodeguero %}
 <div class="container">
   {% if bodegas %}
   <div class="card mb-4">
@@ -22,9 +23,9 @@ Bodegas
       <tbody>
         {% for bodega in bodegas %}
         <tr>
-          <td class="text-l text-center font-weight-bold mb-0">{{ bodega.id }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ bodega.nombreBodega }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ bodega.direccionBodega }}</td>
+          <td class="text-center font-weight-bold">{{ bodega.id }}</td>
+          <td class="text-center font-weight-bold">{{ bodega.nombreBodega }}</td>
+          <td class="text-center font-weight-bold">{{ bodega.direccionBodega }}</td>
           <td>
             <a href="/bodega/edit/{{ bodega.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i>
             </a>
@@ -48,10 +49,13 @@ Bodegas
   <!-- Volver a la derecha -->
   <a href="/" class="btn btn-primary float-end">Volver</a>
 </div>
-
+{% else %}
+  <div class="alert alert-danger text-center" role="alert">
+    <h1 class="text-warning">Acceso no autorizado</h1>
+  </div>
+{% endif %}
 <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <!-- JS DataTable -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 <!-- Inicialización JS -->
@@ -60,4 +64,5 @@ Bodegas
     $('#bodegas-table').DataTable();
   });
 </script>
-{% endblock content %}
+
+{% endblock %}
