@@ -17,10 +17,10 @@ Devolución de Productos
       <thead>
         <tr>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">ID</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Nombre del producto</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Precio del producto</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Motivo Devolución</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Nombre del producto devuelto</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto devuelto</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Precio del producto devuelto</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Motivo de la devolución</th>
           <th class="text-center text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
         </tr>
       </thead>
@@ -28,9 +28,9 @@ Devolución de Productos
         {% for devolucion in devoluciones %}
         <tr>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.id }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.nombreDevolucion }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.producto }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.cantidadDevolucion }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.precioDevolucion }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.producto.precio }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.motivoDevolucion }}</td>
           <td>
             <a href="/devolucion/editar/{{ devolucion.id }}" class="btn btn-warning"><i

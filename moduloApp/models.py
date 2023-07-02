@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -38,23 +40,57 @@ class Tienda(models.Model):
     def __str__(self):
         return self.nombreTienda
 
+class Producto(models.Model):
+    nombreProducto = models.CharField(max_length=50)
+    cantidad = models.IntegerField()
+    precio = models.IntegerField()
+    descripcionProducto = models.CharField(max_length=100)
+    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos"
+
+    def __str__(self):
+        return self.nombreProducto
 
 class Salida_Producto(models.Model):
+    cantidadSalida = models.IntegerField()
     fechaSalida = models.DateField()
     descripcionSalida = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
 
+@receiver(post_save, sender=Salida_Producto)
+def actualizar_cantidad_producto(sender, instance, **kwargs):
+    producto = instance.producto
+    producto.cantidad -= instance.cantidadSalida
+    producto.save()
 
 class Devolucion_Producto(models.Model):
+    cantidadDevolucion = models.IntegerField()
     fechaDevolucion = models.DateField()
     descripcionSalida = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
+
+@receiver(post_save, sender=Devolucion_Producto)
+def actualizar_cantidad_producto(sender, instance, **kwargs):
+    producto = instance.producto
+    producto.cantidad += instance.cantidadDevolucion
+    producto.save()
 
 
 class Entrada_Producto(models.Model):
+    cantidadEntrada = models.IntegerField()
     fechaEntrada = models.DateField()
     descripcionEntrada = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
+
+@receiver(post_save, sender=Entrada_Producto)
+def actualizar_cantidad_producto(sender, instance, **kwargs):
+    producto = instance.producto
+    producto.cantidad += instance.cantidadEntrada
+    producto.save()
 
 
 class Rol(models.Model):
@@ -82,49 +118,7 @@ class Trabajador(models.Model):
     def __str__(self):
         return self.nombreTrabajador
 
-
-class Producto(models.Model):
-    nombreProducto = models.CharField(max_length=50)
-    cantidad = models.IntegerField()
-    descripcionProducto = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True)
-
-    class Meta:
-        verbose_name = "Producto"
-        verbose_name_plural = "Productos"
-
-    def __str__(self):
-        return self.nombreProducto
-
-
-class Devolucion(models.Model):
-    nombreDevolucion = models.CharField(max_length=50)
-    cantidadDevolucion = models.IntegerField()
-    precioDevolucion = models.IntegerField()
-    motivoDevolucion = models.CharField(max_length=100)
-
-    class Meta:
-        verbose_name = "Devolucion"
-        verbose_name_plural = "Devoluciones"
-
-    def __str__(self):
-        return self.nombreDevolucion
-
-
 class ProductoBodega(models.Model):
     stock = models.IntegerField()
     id_Producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     id_Bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
-
-
-class Entrada(models.Model):
-    fecha_entrada = models.DateField()
-    descripcion_entrada = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)
-
-
-class Salida(models.Model):
-    fecha_salida = models.DateField()
-    descripcion_salida = models.CharField(max_length=100)
-    bodega = models.ForeignKey(Bodega, on_delete=models.CASCADE, null=True)

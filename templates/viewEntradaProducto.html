@@ -14,9 +14,9 @@ Entrada Productos
             <thead>
                 <tr>
                     <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder ps-2">fecha_entrada</th>
-                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">descripcion_entrada</th>
-                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">bodega</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto entrante</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Fecha de entrada del producto</th>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripcion del producto entrante</th>
                     <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
                 </tr>
             </thead>
@@ -24,10 +24,10 @@ Entrada Productos
                 {% for entrada in entradas %}
                 <tr>
                     <td class="text-l text-center font-weight-bold mb-0">{{ entrada.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.producto }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.cantidadEntrada }}</td>
                     <td class="text-l text-center font-weight-bold mb-0">{{ entrada.fecha_entrada }}</td>
                     <td class="text-l text-center font-weight-bold mb-0">{{ entrada.descripcion_entrada }}</td> 
-
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.bodega }}</td>
                     <td>
                         <a href="/entrada/edit/{{ entrada.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                         <a href="/entrada/delete/{{ entrada.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
