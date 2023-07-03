@@ -14,14 +14,24 @@ Categoria
     </div>
     <div class="container">
         {% if categorias %}
+
+        <div class="container d-flex justify-content-end mb-1">
+            <!-- Agregar bodega -->
+            <a href="/agregarCategoria" class="btn btn-success btn-md mx-2">Agregar categoria</a>
+            <!-- Volver a la derecha -->
+            <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
+        </div>
+
         <div class="card mb-4">
             <table id="example" class="table align-items-center mb-0">
                 <thead>
                     <tr>
                         <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
                         <th class="text-center text-secondary text-xl font-weight-bolder ps-2">nombreCategoria</th>
-                        <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">descripcion</th>
-                        <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
+                        <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">descripcion
+                        </th>
+                        <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,12 +59,7 @@ Categoria
         </div>
         {% endif %}
     </div>
-    <div class="container">
-        <!-- Agregar bodega -->
-        <a href="/agregarCategoria" class="btn btn-success">Agregar categoria</a>
-        <!-- Volver a la derecha -->
-        <a href="/" class="btn btn-primary float-end">Volver</a>
-    </div>
+
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -67,4 +72,4 @@ Categoria
             $('#example').DataTable();
         });
     </script>
-{% endblock content %}
+    {% endblock content %}
