@@ -10,7 +10,18 @@ Productos
 <div class="container text-center">
   <h1>{{ titulo }}</h1>
   <div class="container">
+
+    <div class="container d-flex justify-content-end mb-1">
+
+      <!-- Agregar productos -->
+  
+      <a href="/add" class="btn btn-success btn-md mx-2" >Agregar productos</a>
+  
+      <!-- Volver a la derecha -->
+  
+      <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
   {% if productos %}
+  </div>
   <div class="card mb-4">
     <table id="example" class="table table-striped display" style="width:100%">
       <thead>
@@ -48,13 +59,6 @@ Productos
   </div>
   {% endif %}
 </div>
-<div class="container">
-  <!-- Agregar productos -->
-  <a href="/add" class="btn btn-success">Agregar productos</a>
-  <!-- Volver a la derecha -->
-  <a href="/" class="btn btn-primary float-end">Volver</a>
-</div>
-
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
   integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

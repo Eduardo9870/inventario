@@ -1,71 +1,145 @@
-
 {% extends "base.html" %}
+
 {% block title %}
+
 Tiendas
 
+
+
+
 {% endblock title %}
+
 {% block content %}
+
 {% load static %}
 
+
+
+
 <!-- CSS datatable -->
+
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+
 <div class="container text-center">
+
   <h1>{{ titulo }}</h1>
-</div>
-<div class="container">
-  {% if tiendas %}
-  <div class="card mb-4">
-    <table id="tiendas-table" class="table align-items-center mb-0">
-      <thead>
-        <tr>
-          <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
-          <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Nombre de tienda</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Dirección de tienda</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Bodega</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for tienda in tiendas %}
-        <tr>
-          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.id }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.nombreTienda }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.direccionTienda }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.bodega }}</td>
-          <td>
-            <a href="/tienda/edit/{{ tienda.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-            <a href="/tienda/delete/{{ tienda.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <div class="alert alert-danger text-center" role="alert">
-    <h1 class="text-warning">No hay tiendas registradas</h1>
-  </div>
-  {% endif %}
+
 </div>
 
 <div class="container">
-  <!-- Agregar bodega -->
-  <a href="/agregarTienda" class="btn btn-success">Agregar tienda</a>
-  <!-- Volver a la derecha -->
-  <a href="/" class="btn btn-primary float-end">Volver</a>
+
+    <div class="container d-flex justify-content-end mb-1">
+
+    <!-- Agregar bodega -->
+
+    <a href="/agregarTienda" class="btn btn-success btn-md mx-2">Agregar tienda</a>
+
+    <!-- Volver a la derecha -->
+
+    <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
+
+  </div>
+
+  {% if tiendas %}
+
+
+  <div class="card mb-4">
+
+    <table id="tiendas-table" class="table align-items-center mb-0">
+
+      <thead>
+
+        <tr>
+
+          <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
+
+          <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Nombre de tienda</th>
+
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Dirección de tienda</th>
+
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Bodega</th>
+
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        {% for tienda in tiendas %}
+
+        <tr>
+
+          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.id }}</td>
+
+          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.nombreTienda }}</td>
+
+          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.direccionTienda }}</td>
+
+          <td class="text-l text-center font-weight-bold mb-0">{{ tienda.bodega }}</td>
+
+          <td>
+
+            <a href="/tienda/edit/{{ tienda.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+
+            <a href="/tienda/delete/{{ tienda.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+
+          </td>
+
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  {% else %}
+
+  <div class="alert alert-danger text-center" role="alert">
+
+    <h1 class="text-warning">No hay tiendas registradas</h1>
+
+  </div>
+
+  {% endif %}
+
 </div>
+
+
+
+
+
 
 <!-- jQuery CDN -->
+
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+
   integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
+
+
+
 <!-- JS DataTable -->
+
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 
+
+
+
 <!-- Inicialización JS -->
+
 <script>
+
   $(document).ready(function () {
+
     $('#tiendas-table').DataTable();
+
   });
+
 </script>
+
 {% endblock content %}

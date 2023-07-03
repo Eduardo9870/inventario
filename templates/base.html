@@ -30,19 +30,12 @@
   {% include 'menus/aside.html' %}
   {% endblock %}
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-    <!-- Navbar -->
-    {% block navbar %}
-    {% include 'menus/navbar.html' %}
-    {% endblock %}
-    <!-- End Navbar -->
+
     <div class="container-fluid py-4">
       {% block content %}
       {% endblock %}
     </div>
   </main>
-  {% block plugin %}
-  {% include 'menus/plugin.html' %}
-  {% endblock %}
 
   <!-- Core JS Files -->
   <script src="{% static 'js/core/popper.min.js' %}"></script>

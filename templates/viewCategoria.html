@@ -13,6 +13,12 @@ Categoria
         <h1>{{ titulo }}</h1>
     </div>
     <div class="container">
+        <div class="container d-flex justify-content-end mb-1">
+            <!-- Agregar bodega -->
+            <a href="/agregarCategoria" class="btn btn-success btn-md mx-2">Agregar categoria</a>
+            <!-- Volver a la derecha -->
+            <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
+        </div>
         {% if categorias %}
         <div class="card mb-4">
             <table id="example" class="table align-items-center mb-0">
@@ -29,7 +35,7 @@ Categoria
                     <tr>
                         <td class="text-l text-center font-weight-bold mb-0">{{ categoria.id }}</td>
                         <td class="text-l text-center font-weight-bold mb-0">{{ categoria.nombreCategoria }}</td>
-                        <td class="text-l text-center font-weight-bold mb-0">{{ categoria.descripcion }}</td>
+                        <td class="text-l text-center font-weight-bold mb-0">{{ categoria.descripcionCategoria }}</td>
                         <td>
                             <a href="/categoria/edit/{{ categoria.id }}" class="btn btn-warning"><i
                                     class="bi bi-pencil-square"></i>
@@ -48,12 +54,6 @@ Categoria
             <h1 class="text-warning">No hay categoria registradas</h1>
         </div>
         {% endif %}
-    </div>
-    <div class="container">
-        <!-- Agregar bodega -->
-        <a href="/agregarCategoria" class="btn btn-success">Agregar categoria</a>
-        <!-- Volver a la derecha -->
-        <a href="/" class="btn btn-primary float-end">Volver</a>
     </div>
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"

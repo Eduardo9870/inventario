@@ -11,7 +11,17 @@ Devolución de Productos
   <h1>{{ titulo }}</h1>
 </div>
 <div class="container">
+  <div class="container d-flex justify-content-end mb-1">
+
+    <!-- Agregar mascota -->
+
+    <a href="/agregarDevolucion" class="btn btn-success btn-md mx-2">Agregar devoluciones</a>
+
+    <!-- Volver a la derecha -->
+
+    <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
   {% if devoluciones %}
+  </div>
   <div class="card mb-4">
     <table id="devoluciones-table" class="table align-items-center justify-content-center mb-0">
       <thead>
@@ -19,7 +29,6 @@ Devolución de Productos
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">ID</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Nombre del producto devuelto</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto devuelto</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Precio del producto devuelto</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Motivo de la devolución</th>
           <th class="text-center text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
         </tr>
@@ -30,8 +39,7 @@ Devolución de Productos
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.id }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.producto }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.cantidadDevolucion }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.producto.precio }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.motivoDevolucion }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.descripcionDevolucion }}</td>
           <td>
             <a href="/devolucion/editar/{{ devolucion.id }}" class="btn btn-warning"><i
                 class="bi bi-pencil-square"></i></a>
@@ -47,12 +55,6 @@ Devolución de Productos
     <h1 class="text-warning">No hay devoluciones registrados</h1>
   </div>
   {% endif %}
-</div>
-<div class="container">
-  <!-- Agregar mascota -->
-  <a href="/agregarDevolucion" class="btn btn-success">Agregar devoluciones</a>
-  <!-- Volver a la derecha -->
-  <a href="/" class="btn btn-primary float-end">Volver</a>
 </div>
 
 

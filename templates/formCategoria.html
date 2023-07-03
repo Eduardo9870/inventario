@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="container text-center">
     <h1>{{ titulo }}</h1>
 </div>
 <form method="POST">
+    {% csrf_token %}
     <div class="card mb-4">
         <table class="table align-items-center mb-0">
             {{ form.as_table }}
@@ -18,10 +20,9 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <button type="submit" class="btn btn-success float-end">{{ titulo }}</button>
+            <input type="submit" class="btn btn-success float-end" value="{{ titulo }}" />
             <a href="/categoria" class="btn btn-danger">Volver</a>
         </div>
     </div>
-    {% csrf_token %}
 </form>
 {% endblock content %}
