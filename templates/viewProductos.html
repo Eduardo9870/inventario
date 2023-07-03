@@ -10,60 +10,69 @@ Productos
 <div class="container text-center">
   <h1>{{ titulo }}</h1>
   <div class="container">
-  {% if productos %}
-  <div class="card mb-4">
-    <table id="example" class="table table-striped display" style="width:100%">
-      <thead>
-        <tr>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">ID</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Nombre del producto</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripción del producto</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Bodega</th>
-          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">categoria</th>
-          <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for producto in productos %}
-        <tr>
-          <td class="text-l text-center font-weight-bold mb-0">{{ producto.id }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ producto.nombreProducto }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ producto.cantidad }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ producto.descripcionProducto }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ producto.bodega }}</td>
-          <td class="text-l text-center font-weight-bold mb-0">{{ producto.categoria }}</td>
-          <td>
-            <a href="/producto/edit/{{ producto.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-            <a href="/producto/delete/{{ producto.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <div class="alert alert-danger text-center" role="alert">
-    <h1 class="text-warning">No hay productos registrados</h1>
-  </div>
-  {% endif %}
-</div>
-<div class="container">
-  <!-- Agregar productos -->
-  <a href="/add" class="btn btn-success">Agregar productos</a>
-  <!-- Volver a la derecha -->
-  <a href="/" class="btn btn-primary float-end">Volver</a>
-</div>
+    {% if productos %}
+    <div class="container d-flex justify-content-end mb-1">
+      <!-- Agregar productos -->
+      <a href="/add" class="btn btn-success btn-md mx-2" >Agregar productos</a>
+      <!-- Volver a la derecha -->
+      <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
+    </div>
+    
 
-<!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-<!-- JS DataTable -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-<!-- Inicialización JS -->
-<script>
-  $(document).ready(function () {
-    $('#example').DataTable();
-  });
-</script>
-{% endblock content %}
+
+
+
+
+    <div class="card mb-4">
+      <table id="example" class="table table-striped display" style="width:100%">
+        <thead>
+          <tr>
+            <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">ID</th>
+            <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Nombre del producto</th>
+            <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto</th>
+            <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripción del producto
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Bodega</th>
+            <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">categoria</th>
+            <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for producto in productos %}
+          <tr>
+            <td class="text-l text-center font-weight-bold mb-0">{{ producto.id }}</td>
+            <td class="text-l text-center font-weight-bold mb-0">{{ producto.nombreProducto }}</td>
+            <td class="text-l text-center font-weight-bold mb-0">{{ producto.cantidad }}</td>
+            <td class="text-l text-center font-weight-bold mb-0">{{ producto.descripcionProducto }}</td>
+            <td class="text-l text-center font-weight-bold mb-0">{{ producto.bodega }}</td>
+            <td class="text-l text-center font-weight-bold mb-0">{{ producto.categoria }}</td>
+            <td>
+              <a href="/producto/edit/{{ producto.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+              <a href="/producto/delete/{{ producto.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+      <h1 class="text-warning">No hay productos registrados</h1>
+    </div>
+    {% endif %}
+  </div>
+
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <!-- JS DataTable -->
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+  <!-- Inicialización JS -->
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable();
+    });
+  </script>
+  {% endblock content %}
