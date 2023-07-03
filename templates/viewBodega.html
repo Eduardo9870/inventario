@@ -9,6 +9,14 @@ Bodegas
 </div>
 <div class="container">
   {% if bodegas %}
+
+  <div class="container d-flex justify-content-end mb-1">
+    <!-- Agregar bodega -->
+    <a href="/addBodega" class="btn btn-success btn-md mx-2">Agregar bodega</a>
+    <!-- Volver a la derecha -->
+    <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
+  </div>
+
   <div class="card mb-4">
     <table id="bodegas-table" class="table align-items-center mb-0">
       <thead>
@@ -42,12 +50,7 @@ Bodegas
   </div>
   {% endif %}
 </div>
-<div class="container">
-  <!-- Agregar bodega -->
-  <a href="/addBodega" class="btn btn-success">Agregar bodega</a>
-  <!-- Volver a la derecha -->
-  <a href="/" class="btn btn-primary float-end">Volver</a>
-</div>
+
 
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
