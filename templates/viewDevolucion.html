@@ -12,6 +12,14 @@ Devolución de Productos
 </div>
 <div class="container">
   {% if devoluciones %}
+
+  <div class="container d-flex justify-content-end mb-1">
+    <!-- Agregar mascota -->
+    <a href="/agregarDevolucion" class="btn btn-success btn-md mx-2">Agregar devoluciones</a>
+    <!-- Volver a la derecha -->
+    <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
+  </div>
+
   <div class="card mb-4">
     <table id="devoluciones-table" class="table align-items-center justify-content-center mb-0">
       <thead>
