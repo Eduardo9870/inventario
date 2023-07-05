@@ -594,7 +594,39 @@ def descargar_reporte_pdf(request):
 
 """ ----------------------------------------------------------------------------------------------------- """
 
-def generar_reporte(request):
+def mostrar_reporte2(request):
+
+    # Obtener los productos de la base de datos
+
+    productos = Producto.objects.all()
+
+    bodegas = Bodega.objects.all()
+
+    tiendas = Tienda.objects.all()
+
+    categorias = Categoria.objects.all()
+
+    devoluciones = Devolucion_Producto.objects.all()
+
+    entradas = Entrada_Producto.objects.all()
+
+    salidas = Salida_Producto.objects.all()
+
+
+
+
+    titulo = "Reportes"
+
+
+
+
+    return render(request, 'reporte2.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
+
+
+
+
+
+def generar_reporte2(request):
 
     # Obtener los productos de la base de datos
 
@@ -619,7 +651,7 @@ def generar_reporte(request):
 
     # Renderizar el template con los datos
 
-    reporte_html = render_to_string('reporte.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas,
+    reporte_html = render_to_string('reporte2.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas,
 
                                     'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
 
@@ -641,7 +673,8 @@ def generar_reporte(request):
 
 
 
-def descargar_reporte_pdf(request):
+
+def descargar_reporte_pdf2(request):
 
     # Obtener los datos de la base de datos
 
@@ -702,7 +735,7 @@ def descargar_reporte_pdf(request):
 
     # Establecer estilo de fuente normal
 
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
 
     p.drawString(50, y, "#")
 
@@ -758,7 +791,7 @@ def descargar_reporte_pdf(request):
 
     # Establecer estilo de fuente normal
 
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
 
     p.drawString(50, y, "#")
 
@@ -796,7 +829,7 @@ def descargar_reporte_pdf(request):
 
     # Establecer estilo de fuente normal
 
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
 
     p.drawString(50, y, "#")
 
@@ -841,7 +874,7 @@ def descargar_reporte_pdf(request):
 
     # Establecer estilo de fuente normal
 
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
 
     p.drawString(50, y, "#")
 
@@ -882,7 +915,7 @@ def descargar_reporte_pdf(request):
 
     # Establecer estilo de fuente normal
 
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
 
     p.drawString(50, y, "#")
 
@@ -928,7 +961,7 @@ def descargar_reporte_pdf(request):
 
     # Establecer estilo de fuente normal
 
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
 
     p.drawString(50, y, "#")
 
@@ -977,7 +1010,7 @@ def descargar_reporte_pdf(request):
 
     # Establecer estilo de fuente normal
 
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
 
     p.drawString(50, y, "#")
 
@@ -1026,7 +1059,7 @@ def descargar_reporte_pdf(request):
 
     response = HttpResponse(content_type='application/pdf')
 
-    response['Content-Disposition'] = 'attachment; filename="reporte_productos.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="reporte_general.pdf"'
 
     response.write(buffer.getvalue())
 
@@ -1065,4 +1098,4 @@ def mostrar_reporte(request):
 
 
 
-    return render(request, 'reporte.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
+    return render(request, 'reporte2.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
