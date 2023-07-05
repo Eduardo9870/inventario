@@ -595,231 +595,474 @@ def descargar_reporte_pdf(request):
 """ ----------------------------------------------------------------------------------------------------- """
 
 def generar_reporte(request):
+
     # Obtener los productos de la base de datos
+
     productos = Producto.objects.all()
+
     bodegas = Bodega.objects.all()
+
     tiendas = Tienda.objects.all()
+
     categorias = Categoria.objects.all()
+
     devoluciones = Devolucion_Producto.objects.all()
-    entradas = Entrada_Producto.objects.all()
-    salidas =Salida_Producto.objects.all()
-    titulo = "Reportes "
 
-    # Renderizar el template con los datos
-    reporte_html = render_to_string('reporte.html', {'productos': productos, 'bodegas':bodegas, 'tiendas': tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas':salidas, 'titulo': titulo})
-
-    # Crear una respuesta HTTP con el contenido HTML
-    response = HttpResponse(content_type='text/html')
-    response.write(reporte_html)
-
-    return response
-
-def descargar_reporte_pdf(request):
-    # Obtener los datos de la base de datos
-    productos = Producto.objects.all()
-    bodegas = Bodega.objects.all()
-    tiendas = Tienda.objects.all()
-    categorias = Categoria.objects.all()
-    devoluciones = Devolucion_Producto.objects.all()
-    entradas = Entrada_Producto.objects.all()
-    salidas =Salida_Producto.objects.all()
-
-
-    # Crear un objeto BytesIO para almacenar el PDF generado
-    buffer = BytesIO()
-
-    # Crear el objeto PDF utilizando reportlab
-    p = canvas.Canvas(buffer)
-
-    # Agregar el título al PDF
-    titulo = "Reportes Generales"
-    p.setFont("Helvetica-Bold", 16)
-    p.drawCentredString(300, 750, titulo)
-
-    # Agregar los datos de los productos al PDF
-    y = 700
-    p.drawString(50, y, "Datos de productos:")
-    y -= 20
-
-    # Dibujar encabezado de columnas
-     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(50, y, "#")
-    p.drawString(100, y, "Producto")
-    p.drawString(200, y, "Cantidad")
-    p.drawString(280, y, "Descripción")
-    p.drawString(380, y, "Bodega")
-    p.drawString(460, y, "Categoria")
-    
-    y -= 20
-
-    for producto in productos:
-        p.drawString(50, y, str(producto.id))       
-        p.drawString(100, y, str(producto.nombreProducto))
-        p.drawString(200, y, str(producto.cantidad))
-        p.drawString(280, y, str(producto.descripcionProducto))
-        p.drawString(380, y, str(producto.bodega))
-        p.drawString(460, y, str(producto.categoria))
-        y -= 20
-
- # Espacio entre las secciones de datos
-    y -= 20
-
-
-    p.drawString(50, y, "Datos de bodegas:")
-    y -= 20
-    # Dibujar encabezado de columnas
-    # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(50, y, "#")
-    p.drawString(100, y, "Nombre")
-    p.drawString(200, y, "Dirección")
-    y -= 20
-    for bodega in bodegas:
-        p.drawString(50, y, str(bodega.id)) 
-        p.drawString(100, y, str(bodega.nombreBodega))
-        p.drawString(200, y, str(bodega.direccionBodega))
-        y -= 20
-
- # Espacio entre las secciones de datos
-    y -= 20
-
-    p.drawString(50, y, "Datos de tiendas:")
-    y -= 20
-        # Dibujar encabezado de columnas
-     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(50, y, "#")
-    p.drawString(100, y, "Nombre")
-    p.drawString(200, y, "Dirección")
-    p.drawString(330, y, "Bodega")
-    
-
-    y -= 20
-    for tienda in tiendas:
-        p.drawString(50, y, str(tienda.id)) 
-        p.drawString(100, y, str(tienda.nombreTienda))
-        p.drawString(200, y, str(tienda.direccionTienda))
-        p.drawString(330, y, str(tienda.bodega)) 
-        y -= 20
-
- # Espacio entre las secciones de datos
-    y -= 20
-
-    p.drawString(50, y, "Datos de categorias:")
-    y -= 20
-        # Dibujar encabezado de columnas
-     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(50, y, "#")
-    p.drawString(100, y, "Nombre")
-    p.drawString(230, y, "Descripción")
-
-    y -= 20
-    for categoria in categorias:
-        p.drawString(50, y, str(categoria.id)) 
-        p.drawString(100, y, str(categoria.nombreCategoria))
-        p.drawString(230, y, str(categoria.descripcionCategoria))
-        y -= 20
-
- # Espacio entre las secciones de datos
-    y -= 20
-
-    p.drawString(50, y, "Datos de devoluciones:")
-    y -= 20
-        # Dibujar encabezado de columnas
-     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(50, y, "#")
-    p.drawString(100, y, "Nombre")
-    p.drawString(200, y, "Cantidad")
-    p.drawString(300, y, "Precio")
-    p.drawString(400, y, "Motivo")
-    y -= 20
-    for devolucion in devoluciones:
-        p.drawString(50, y, str(devolucion.id)) 
-        p.drawString(100, y, str(devolucion.nombreDevolucion))
-        p.drawString(200, y, str(devolucion.cantidadDevolucion))
-        p.drawString(300, y, str(devolucion.precioDevolucion))
-        p.drawString(400, y, str(devolucion.motivoDevolucion))
-        y -= 20
-
- # Espacio entre las secciones de datos
-    y -= 20
-
-    p.drawString(50, y, "Datos de entradas:")
-    y -= 20
-        # Dibujar encabezado de columnas
-     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(50, y, "#")
-    p.drawString(100, y, "Fecha")
-    p.drawString(200, y, "Descripción")
-    p.drawString(340, y, "Bodega")
-
-    y -= 20
-    for entrada in entradas:
-        p.drawString(50, y, str(entrada.id)) 
-        p.drawString(100, y, str(entrada.fecha_entrada))
-        p.drawString(200, y, str(entrada.descripcion_entrada))
-        p.drawString(340, y, str(entrada.bodega))
-        y -= 20
-
- # Espacio entre las secciones de datos
-    y -= 20
-
-    p.drawString(50, y, "Datos de salidas:")
-    y -= 20
-        # Dibujar encabezado de columnas
-     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(50, y, "#")
-    p.drawString(100, y, "Fecha")
-    p.drawString(200, y, "Descripción")
-    p.drawString(340, y, "Bodega")
-
-    y -= 20
-    for salida in salidas:
-        p.drawString(50, y, str(salida.id)) 
-        p.drawString(100, y, str(salida.fecha_salida))
-        p.drawString(200, y, str(salida.descripcion_salida))
-        p.drawString(340, y, str(salida.bodega))
-        y -= 20
-
-    
-
-    # Guardar el contenido del PDF
-    p.showPage()
-    p.save()
-
-    # Obtener el contenido del BytesIO y crear la respuesta HTTP
-    buffer.seek(0)
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="reporte_productos.pdf"'
-    response.write(buffer.getvalue())
-
-    return response
-
-def mostrar_reporte(request):
-    # Obtener los productos de la base de datos
-    productos = Producto.objects.all()
-    bodegas = Bodega.objects.all()
-    tiendas = Tienda.objects.all()
-    categorias = Categoria.objects.all()
-    devoluciones = Devolucion_Producto.objects.all()
     entradas = Entrada_Producto.objects.all()
 
     salidas = Salida_Producto.objects.all()
 
+    titulo = "Reportes "
+
+
+
+
+    # Renderizar el template con los datos
+
+    reporte_html = render_to_string('reporte.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas,
+
+                                    'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
+
+
+
+
+    # Crear una respuesta HTTP con el contenido HTML
+
+    response = HttpResponse(content_type='text/html')
+
+    response.write(reporte_html)
+
+
+
+
+    return response
+
+
+
+
+
+def descargar_reporte_pdf(request):
+
+    # Obtener los datos de la base de datos
+
+    productos = Producto.objects.all()
+
+    bodegas = Bodega.objects.all()
+
+    tiendas = Tienda.objects.all()
+
+    categorias = Categoria.objects.all()
+
+    devoluciones = Devolucion_Producto.objects.all()
+
+    entradas = Entrada_Producto.objects.all()
+
+    salidas = Salida_Producto.objects.all()
+
+
+
+
+    # Crear un objeto BytesIO para almacenar el PDF generado
+
+    buffer = BytesIO()
+
+
+
+
+    # Crear el objeto PDF utilizando reportlab
+
+    p = canvas.Canvas(buffer)
+
+
+
+
+    # Agregar el título al PDF
+
+    titulo = "Reportes Generales"
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawCentredString(300, 750, titulo)
+
+
+
+
+    # Agregar los datos de los productos al PDF
+
+    y = 700
+
+    p.drawString(50, y, "Datos de productos:")
+
+    y -= 20
+
+
+
+
+    # Dibujar encabezado de columnas
+
+    # Establecer estilo de fuente normal
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawString(50, y, "#")
+
+    p.drawString(100, y, "Producto")
+
+    p.drawString(200, y, "Cantidad")
+
+    p.drawString(280, y, "Descripción")
+
+    p.drawString(380, y, "Bodega")
+
+    p.drawString(460, y, "Categoria")
+
+
+
+
+    y -= 20
+
+
+
+
+    for producto in productos:
+
+        p.drawString(50, y, str(producto.id))
+
+        p.drawString(100, y, str(producto.nombreProducto))
+
+        p.drawString(200, y, str(producto.cantidad))
+
+        p.drawString(280, y, str(producto.descripcionProducto))
+
+        p.drawString(380, y, str(producto.bodega))
+
+        p.drawString(460, y, str(producto.categoria))
+
+        y -= 20
+
+
+
+
+ # Espacio entre las secciones de datos
+
+    y -= 20
+
+
+
+
+    p.drawString(50, y, "Datos de bodegas:")
+
+    y -= 20
+
+    # Dibujar encabezado de columnas
+
+    # Establecer estilo de fuente normal
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawString(50, y, "#")
+
+    p.drawString(100, y, "Nombre")
+
+    p.drawString(200, y, "Dirección")
+
+    y -= 20
+
+    for bodega in bodegas:
+
+        p.drawString(50, y, str(bodega.id))
+
+        p.drawString(100, y, str(bodega.nombreBodega))
+
+        p.drawString(200, y, str(bodega.direccionBodega))
+
+        y -= 20
+
+
+
+
+ # Espacio entre las secciones de datos
+
+    y -= 20
+
+
+
+
+    p.drawString(50, y, "Datos de tiendas:")
+
+    y -= 20
+
+    # Dibujar encabezado de columnas
+
+    # Establecer estilo de fuente normal
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawString(50, y, "#")
+
+    p.drawString(100, y, "Nombre")
+
+    p.drawString(200, y, "Dirección")
+
+    p.drawString(330, y, "Bodega")
+
+
+
+
+    y -= 20
+
+    for tienda in tiendas:
+
+        p.drawString(50, y, str(tienda.id))
+
+        p.drawString(100, y, str(tienda.nombreTienda))
+
+        p.drawString(200, y, str(tienda.direccionTienda))
+
+        p.drawString(330, y, str(tienda.bodega))
+
+        y -= 20
+
+
+
+
+ # Espacio entre las secciones de datos
+
+    y -= 20
+
+
+
+
+    p.drawString(50, y, "Datos de categorias:")
+
+    y -= 20
+
+    # Dibujar encabezado de columnas
+
+    # Establecer estilo de fuente normal
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawString(50, y, "#")
+
+    p.drawString(100, y, "Nombre")
+
+    p.drawString(230, y, "Descripción")
+
+
+
+
+    y -= 20
+
+    for categoria in categorias:
+
+        p.drawString(50, y, str(categoria.id))
+
+        p.drawString(100, y, str(categoria.nombreCategoria))
+
+        p.drawString(230, y, str(categoria.descripcionCategoria))
+
+        y -= 20
+
+
+
+
+ # Espacio entre las secciones de datos
+
+    y -= 20
+
+
+
+
+    p.drawString(50, y, "Datos de devoluciones:")
+
+    y -= 20
+
+    # Dibujar encabezado de columnas
+
+    # Establecer estilo de fuente normal
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawString(50, y, "#")
+
+    p.drawString(100, y, "Cantidad")
+
+    p.drawString(200, y, "Fecha")
+
+    p.drawString(410, y, "Descripcion")
+
+    p.drawString(510, y, "producto")
+
+    y -= 20
+
+    for devolucion in devoluciones:
+
+        p.drawString(50, y, str(devolucion.id))
+
+        p.drawString(100, y, str(devolucion.cantidadDevolucion))
+
+        p.drawString(200, y, str(devolucion.fechaDevolucion))
+
+        p.drawString(410, y, str(devolucion.descripcionDevolucion))
+
+        p.drawString(510, y, str(devolucion.producto))
+
+        y -= 20
+
+
+
+
+ # Espacio entre las secciones de datos
+
+    y -= 20
+
+
+
+
+    p.drawString(50, y, "Datos de entradas:")
+
+    y -= 20
+
+    # Dibujar encabezado de columnas
+
+    # Establecer estilo de fuente normal
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawString(50, y, "#")
+
+    p.drawString(100, y, "Cantidad")
+
+    p.drawString(200, y, "Fecha")
+
+    p.drawString(410, y, "Descripcion")
+
+    p.drawString(510, y, "producto")
+
+
+
+
+    y -= 20
+
+    for entrada in entradas:
+
+        p.drawString(50, y, str(entrada.id))
+
+        p.drawString(100, y, str(entrada.cantidadEntrada))
+
+        p.drawString(200, y, str(entrada.fechaEntrada))
+
+        p.drawString(410, y, str(entrada.descripcionEntrada))
+
+        p.drawString(510, y, str(entrada.producto))
+
+        y -= 20
+
+
+
+
+ # Espacio entre las secciones de datos
+
+    y -= 20
+
+
+
+
+    p.drawString(50, y, "Datos de salidas:")
+
+    y -= 20
+
+    # Dibujar encabezado de columnas
+
+    # Establecer estilo de fuente normal
+
+    p.setFont("Helvetica-Bold", 16)
+
+    p.drawString(50, y, "#")
+
+    p.drawString(100, y, "Cantidad")
+
+    p.drawString(200, y, "Fecha")
+
+    p.drawString(410, y, "Descripcion")
+
+    p.drawString(510, y, "producto")
+
+
+
+
+    y -= 20
+
+    for salida in salidas:
+
+        p.drawString(50, y, str(salida.id))
+
+        p.drawString(100, y, str(salida.cantidadSalida))
+
+        p.drawString(200, y, str(salida.fechaSalida))
+
+        p.drawString(410, y, str(salida.descripcionSalida))
+
+        p.drawString(510, y, str(salida.producto))
+
+        y -= 20
+
+
+
+
+    # Guardar el contenido del PDF
+
+    p.showPage()
+
+    p.save()
+
+
+
+
+    # Obtener el contenido del BytesIO y crear la respuesta HTTP
+
+    buffer.seek(0)
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = 'attachment; filename="reporte_productos.pdf"'
+
+    response.write(buffer.getvalue())
+
+
+
+
+    return response
+
+
+
+
+
+def mostrar_reporte(request):
+
+    # Obtener los productos de la base de datos
+
+    productos = Producto.objects.all()
+
+    bodegas = Bodega.objects.all()
+
+    tiendas = Tienda.objects.all()
+
+    categorias = Categoria.objects.all()
+
+    devoluciones = Devolucion_Producto.objects.all()
+
+    entradas = Entrada_Producto.objects.all()
+
+    salidas = Salida_Producto.objects.all()
+
+
+
+
     titulo = "Reportes"
+
+
+
 
     return render(request, 'reporte.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
-
-    salidas =Salida.objects.all()
-
-    titulo = "Reportes"
-
-
-    return render(request, 'reporte.html', {'productos': productos, 'bodegas':bodegas, 'tiendas':tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas':entradas, 'salidas':salidas, 'titulo': titulo})
-
-
