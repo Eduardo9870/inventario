@@ -464,7 +464,7 @@ def descargar_reporte_pdf2(request):
 
     # Dibujar encabezado de columnas
     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
     p.drawString(50, y, "#")
     p.drawString(100, y, "Producto")
     p.drawString(200, y, "Cantidad")
@@ -490,7 +490,7 @@ def descargar_reporte_pdf2(request):
     y -= 20
     # Dibujar encabezado de columnas
     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
     p.drawString(50, y, "#")
     p.drawString(100, y, "Nombre")
     p.drawString(200, y, "Dirección")
@@ -508,7 +508,7 @@ def descargar_reporte_pdf2(request):
     y -= 20
     # Dibujar encabezado de columnas
     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
     p.drawString(50, y, "#")
     p.drawString(100, y, "Nombre")
     p.drawString(200, y, "Dirección")
@@ -529,7 +529,7 @@ def descargar_reporte_pdf2(request):
     y -= 20
     # Dibujar encabezado de columnas
     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
     p.drawString(50, y, "#")
     p.drawString(100, y, "Nombre")
     p.drawString(230, y, "Descripción")
@@ -548,7 +548,7 @@ def descargar_reporte_pdf2(request):
     y -= 20
     # Dibujar encabezado de columnas
     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
     p.drawString(50, y, "#")
     p.drawString(100, y, "Cantidad")
     p.drawString(200, y, "Fecha")
@@ -570,7 +570,7 @@ def descargar_reporte_pdf2(request):
     y -= 20
     # Dibujar encabezado de columnas
     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
     p.drawString(50, y, "#")
     p.drawString(100, y, "Cantidad")
     p.drawString(200, y, "Fecha")
@@ -593,7 +593,7 @@ def descargar_reporte_pdf2(request):
     y -= 20
     # Dibujar encabezado de columnas
     # Establecer estilo de fuente normal
-    p.setFont("Helvetica-Bold", 16)
+    p.setFont("Helvetica-Bold", 14)
     p.drawString(50, y, "#")
     p.drawString(100, y, "Cantidad")
     p.drawString(200, y, "Fecha")
