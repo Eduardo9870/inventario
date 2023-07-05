@@ -3,11 +3,17 @@
 Reportes Generales
 {% endblock title %}
 {% block content %}
+
 <div class="container text-center">
     <h1>Reportes Generales</h1>
 </div>
 
 <div class="container">
+
+    <div class="container">
+        <a href="{% url 'descargar_reporte' %}" class="btn btn-success">Descargar PDF</a>
+        <a href="/" class="btn btn-primary float-end">Volver</a>
+    </div>
 
     {% if productos %}
     <h3> Productos </h3>
@@ -147,10 +153,10 @@ Reportes Generales
             <thead>
                 <tr>
                     <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Nombre devolución </th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Precio</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Motivo</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad </th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripcion</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto</th>
 
                 </tr>
             </thead>
@@ -158,10 +164,10 @@ Reportes Generales
                 {% for devolucion in devoluciones %}
                 <tr>
                     <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.id }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.nombreDevolucion }}</td>
                     <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.cantidadDevolucion }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.precioDevolucion }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.motivoDevolucion }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.fechaDevolucion }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.descripcionDevolucion }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.producto }}</td>
 
 
                 </tr>
@@ -183,9 +189,11 @@ Reportes Generales
             <thead>
                 <tr>
                     <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha entrada </th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripción Entrada</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Bodega</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad </th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripcion</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto</th>
+
 
                 </tr>
             </thead>
@@ -193,9 +201,10 @@ Reportes Generales
                 {% for entrada in entradas %}
                 <tr>
                     <td class="text-l text-center font-weight-bold mb-0">{{ entrada.id }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.fecha_entrada }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.descripcion_entrada }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.bodega }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.cantidadEntrada }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.fechaEntrada }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.descripcionEntrada }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.producto }}</td>
 
 
                 </tr>
@@ -217,9 +226,10 @@ Reportes Generales
             <thead>
                 <tr>
                     <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha salida </th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripción Salida</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Bodega</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad </th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripcion</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto</th>
 
 
                 </tr>
@@ -228,10 +238,10 @@ Reportes Generales
                 {% for salida in salidas %}
                 <tr>
                     <td class="text-l text-center font-weight-bold mb-0">{{ salida.id }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.fecha_salida }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.descripcion_salida }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.bodega }}</td>
-
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.cantidadSalida }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.fechaSalida }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.descripcionSalida }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.producto }}</td>
 
 
                 </tr>
@@ -249,10 +259,7 @@ Reportes Generales
 
 </div>
 
-<div class="container">
-    <a href="{% url 'descargar_reporte' %}" class="btn btn-primary">Descargar PDF</a>
-    <a href="/" class="btn btn-primary float-end">Volver</a>
-</div>
+
 
 <!-- JS DataTable -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
