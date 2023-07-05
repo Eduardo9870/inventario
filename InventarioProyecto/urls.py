@@ -22,47 +22,43 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cuenta/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    # path('login/', CustomLoginView.as_view(), name='login'),
-
     path('producto/', viewProducto, name='producto'),
     path('add/', addProducto, name='add'),
-    path('producto/delete/<int:id>', deleteProducto, name='deleteProducto'),
-    path('producto/edit/<int:id>', editarProducto, name='editarProducto'),
+    path('producto/delete/<int:id>/', deleteProducto, name='deleteProducto'),
+    path('producto/edit/<int:id>/', editarProducto, name='editarProducto'),
     path('bodega/', viewBodega, name='bodega'),
     path('addBodega/', addBodega, name='addBodega'),
     path('bodega/delete/<int:id>', deleteBodega, name='deleteBodega'),
     path('bodega/edit/<int:id>', editarBodega, name='editarBodega'),
-    
+    path('bodega/delete/<int:id>/', deleteBodega, name='deleteBodega'),
+    path('bodega/edit/<int:id>/', editarBodega, name='editarBodega'),
+    path('registro/', nuevo_usuario, name='registrar'),
     path('registro/', viewRegistro, name='registro'),
-
     path('tienda/', viewTienda, name='tienda'),
     path('agregarTienda/', agregarTienda, name='agregarTienda'),
     path('tienda/delete/<int:id>', deleteTienda, name='deleteTienda'),
     path('tienda/edit/<int:id>', editarTienda, name='editarTienda'),
-
     path('devolucion/', viewDevolucion, name='devolucion'),
     path('agregarDevolucion/', agregarDevolucion, name='agregarDevolucion'),
     path('devolucion/delete/<int:id>', deleteDevolucion, name='deleteDevolucion'),
     path('devolucion/edit/<int:id>', editarDevolucion, name='editarDevolucion'),
-
     path('categoria/', viewCategoria, name='categoria'),
     path('agregarCategoria/', agregarCategoria, name='agregarCategoria'),
     path('categoria/edit/<int:id>', editarCategoria, name='editarCategoria'),
     path('categoria/delete/<int:id>', deleteCategoria, name='deleteCategoria'),
-
     path('entrada/', viewEntrada, name='entrada'),
     path('agregarEntrada/', agregarEntrada, name='agregarEntrada'),
     path('entrada/delete/<int:id>', deleteEntrada, name='deleteEntrada'),
     path('entrada/edit/<int:id>', editarEntrada, name='editarEntrada'),
-
     path('salida/', viewSalida, name='salida'),
     path('agregarSalida/', agregarSalida, name='agregarSalida'),
     path('salida/delete/<int:id>', deleteSalida, name='deleteSalida'),
     path('salida/edit/<int:id>', editarSalida, name='editarSalida'),
 
-    path('reporte/', generar_reporte, name='mostrar_reporte'),
-    path('reporte/descargar/', descargar_reporte_pdf, name='descargar_reporte'),
-    path('reporte/', mostrar_reporte, name='mostrar_reporte'),
-    path('reporte/descargar/', descargar_reporte_pdf, name='descargar_reporte'),
-   
+    path('tienda/delete/<int:id>/', deleteTienda, name='deleteTienda'),
+    path('tienda/edit/<int:id>/', editarTienda, name='editarTienda'),
+
+    path('reporte2/', mostrar_reporte2, name='mostrar_reporte2'),
+    path('reporte2/', generar_reporte2, name='mostrar_reporte2'),
+    path('reporte/descargar/', descargar_reporte_pdf2, name='descargar_reporte'),
 ]

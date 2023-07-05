@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% block title %}
+Reportes Generales
+{% endblock title %}
+{% block content %}
+<div class="container text-center">
+    <h1>Reportes Generales</h1>
+</div>
+
+<div class="container">
+
+    <div class="container">
+        <a href="{% url 'descargar_reporte' %}" class="btn btn-success">Descargar PDF</a>
+        <a href="/" class="btn btn-primary float-end">Volver</a>
+    </div>
+
+    {% if productos %}
+    <h3> Productos </h3>
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Nombre del Producto</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad</th>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripción</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Bodega</th>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.nombreProducto }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.cantidad }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.descripcionProducto }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.bodega }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ producto.categoria }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay productos registrados</h1>
+    </div>
+    {% endif %}
+
+
+    {% if bodegas %}
+    <h3>Bodegas</h3>
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Nombre bodega</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Dirección</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bodega in bodegas %}
+                <tr>
+
+                    <td class="text-l text-center font-weight-bold mb-0">{{ bodega.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ bodega.nombreBodega }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ bodega.direccionBodega }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay bodegas registradas</h1>
+    </div>
+    {% endif %}
+
+
+    {% if tiendas %}
+    <h3>Tiendas</h3>
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Nombre tienda</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Dirección</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Bodega</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for tienda in tiendas %}
+                <tr>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ tienda.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ tienda.nombreTienda }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ tienda.direccionTienda }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ tienda.bodega }}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay tiendas registradas</h1>
+    </div>
+    {% endif %}
+
+    {% if categorias %}
+    <h3>Categorias</h3>
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Nombre categoria</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripción</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria in categorias %}
+                <tr>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ categoria.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ categoria.nombreCategoria }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ categoria.descripcionCategoria }}</td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay categorias registradas</h1>
+    </div>
+    {% endif %}
+
+
+
+    {% if devoluciones %}
+    <h3>Devoluciones </h3>
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad </th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripcion</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for devolucion in devoluciones %}
+                <tr>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.cantidadDevolucion }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.fechaDevolucion }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.descripcionDevolucion }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.producto }}</td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay devoluciones registradas</h1>
+    </div>
+    {% endif %}
+
+
+    {% if entradas %}
+    <h3>Entradas</h3>
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad </th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripcion</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrada in entradas %}
+                <tr>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.cantidadEntrada }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.fechaEntrada }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.descripcionEntrada }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.producto }}</td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay entradas registradas</h1>
+    </div>
+    {% endif %}
+
+
+    {% if salidas %}
+    <h3>Salidas</h3>
+    <div class="card mb-4">
+        <table id="productos-table" class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">#</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad </th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Fecha</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Descripcion</th>
+                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for salida in salidas %}
+                <tr>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.id }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.cantidadSalida }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.fechaSalida }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.descripcionSalida }}</td>
+                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.producto }}</td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="text-warning">No hay salidas registradas</h1>
+    </div>
+    {% endif %}
+
+
+
+</div>
+
+
+
+<!-- JS DataTable -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<!-- Inicialización JS -->
+<script>
+    $(document).ready(function () {
+        $('#productos-table').DataTable();
+    });
+</script>
+{% endblock content %}

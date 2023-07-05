@@ -1,11 +1,12 @@
-from django.shortcuts import render
-
-# Create your views here.
+from moduloApp.models import Categoria
 from django.shortcuts import render, redirect
 from moduloApp.models import *
 from moduloApp.forms import *
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -13,7 +14,28 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 
-# Create your views here.
+
+def nuevo_usuario(request):
+    if request.method == 'POST':
+        formulario = UserCreationForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('/')
+    else:
+        formulario = UserCreationForm()
+    return render(request, 'registration/registro.html', {'formulario': formulario})
+
+
+def ingresar(request):
+    if request.method == 'POST':
+        formulario = AuthenticationForm(request, data=request.POST)
+        if formulario.is_valid():
+            usuario = formulario.get_user()
+            login(request, usuario)
+            return HttpResponseRedirect('/home')
+    else:
+        formulario = AuthenticationForm()
+    return render(request, 'login.html', {'formulario': formulario})
 
 
 def viewProducto(request):
@@ -30,13 +52,14 @@ def addProducto(request):
         'titulo': 'Agregar productos',
         'form': ProductoModelForm()
     }
-    if (request.method) == 'POST':
+    if request.method == 'POST':
         formulario = ProductoModelForm(request.POST)
         if formulario.is_valid():
             formulario.save()
             return redirect('/producto')
-        else:
-            data['form'] = formulario
+    else:
+        formulario = ProductoModelForm()
+    data['form'] = formulario
     return render(request, 'formProductos.html', data)
 
 
@@ -47,21 +70,27 @@ def deleteProducto(request, id):
 
 
 def editarProducto(request, id):
-    form = Producto.objects.get(id=id)
+    producto = Producto.objects.get(id=id)
+    if request.method == 'POST':
+        formulario = ProductoModelForm(request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('/producto')
+    else:
+        formulario = ProductoModelForm(instance=producto)
     data = {
         'titulo': 'Editar productos',
-        'form': ProductoModelForm(instance=form)
+        'form': formulario
     }
-    if (request.method == 'POST'):
-        form = ProductoModelForm(request.POST, instance=form)
-        if (form.is_valid()):
-            form.save()
-            return redirect('/producto')
-        else:
-            data['form'] = form
     return render(request, 'formProductos.html', data)
 
 
+def is_admin_or_bodeguero(user):
+    return user.is_superuser or user.groups.filter(name='Bodeguero').exists()
+
+
+@login_required
+@user_passes_test(is_admin_or_bodeguero)
 def viewBodega(request):
     bodegas = Bodega.objects.all()
     data = {
@@ -177,7 +206,7 @@ def editarTienda(request, id):
 
 
 def viewDevolucion(request):
-    devoluciones = Devolucion.objects.all()
+    devoluciones = Devolucion_Producto.objects.all()
     data = {
         'devoluciones': devoluciones,
         'titulo': 'Devoluciones de Productos',
@@ -201,13 +230,13 @@ def agregarDevolucion(request):
 
 
 def deleteDevolucion(request, id):
-    devolucion = Devolucion.objects.get(id=id)
+    devolucion = Devolucion_Producto.objects.get(id=id)
     devolucion.delete()
     return redirect('/devolucion')
 
 
 def editarDevolucion(request, id):
-    form = Devolucion.objects.get(id=id)
+    form = Devolucion_Producto.objects.get(id=id)
     data = {
         'titulo': 'Editar devolucion',
         'form': DevolucionModelForm(instance=form)
@@ -234,10 +263,10 @@ def viewCategoria(request):
 def agregarCategoria(request):
     data = {
         'titulo': 'Agregar categoria',
-        'form': categoriaModelForm()
+        'form': CategoriaModelForm()
     }
     if (request.method) == 'POST':
-        formulario = categoriaModelForm(request.POST)
+        formulario = CategoriaModelForm(request.POST)
         if formulario.is_valid():
             formulario.save()
             return redirect('/categoria')
@@ -250,10 +279,10 @@ def editarCategoria(request, id):
     form = Categoria.objects.get(id=id)
     data = {
         'titulo': 'Editar categoria',
-        'form': categoriaModelForm(instance=form)
+        'form': CategoriaModelForm(instance=form)
     }
     if (request.method == 'POST'):
-        form = categoriaModelForm(request.POST, instance=form)
+        form = CategoriaModelForm(request.POST, instance=form)
         if (form.is_valid()):
             form.save()
             return redirect('/categoria')
@@ -269,7 +298,7 @@ def deleteCategoria(request, id):
 
 
 def viewEntrada(request):
-    entradas = Entrada.objects.all()
+    entradas = Entrada_Producto.objects.all()
     data = {
         'entradas': entradas,
         'titulo': 'Entrada Producto',
@@ -293,7 +322,7 @@ def agregarEntrada(request):
 
 
 def editarEntrada(request, id):
-    form = Entrada.objects.get(id=id)
+    form = Entrada_Producto.objects.get(id=id)
     data = {
         'titulo': 'Editar entrada producto',
         'form': EntradaModelForm(instance=form)
@@ -309,13 +338,13 @@ def editarEntrada(request, id):
 
 
 def deleteEntrada(request, id):
-    entrada = Entrada.objects.get(id=id)
+    entrada = Entrada_Producto.objects.get(id=id)
     entrada.delete()
     return redirect('/entrada')
 
 
 def viewSalida(request):
-    salidas = Salida.objects.all()
+    salidas = Salida_Producto.objects.all()
     data = {
         'salidas': salidas,
         'titulo': 'Salida Producto',
@@ -339,7 +368,7 @@ def agregarSalida(request):
 
 
 def editarSalida(request, id):
-    form = Salida.objects.get(id=id)
+    form = Salida_Producto.objects.get(id=id)
     data = {
         'titulo': 'Editar Salida producto',
         'form': SalidaModelForm(instance=form)
@@ -354,16 +383,37 @@ def editarSalida(request, id):
     return render(request, 'formSalidaProductos.html', data)
 
 
-
 def deleteSalida(request, id):
-    salida = Salida.objects.get(id=id)
+    salida = Salida_Producto.objects.get(id=id)
     salida.delete()
     return redirect('/salida')
 
 
 """ ----------------------------------------------------------------------------------------------------- """
 
-def generar_reporte(request):
+
+
+
+# -----------------------------------------------------------------------------------------------
+
+
+
+def mostrar_reporte2(request):
+    # Obtener los productos de la base de datos
+    productos = Producto.objects.all()
+    bodegas = Bodega.objects.all()
+    tiendas = Tienda.objects.all()
+    categorias = Categoria.objects.all()
+    devoluciones = Devolucion_Producto.objects.all()
+    entradas = Entrada_Producto.objects.all()
+    salidas = Salida_Producto.objects.all()
+
+    titulo = "Reportes"
+
+    return render(request, 'reporte2.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
+
+
+def generar_reporte2(request):
     # Obtener los productos de la base de datos
     productos = Producto.objects.all()
     bodegas = Bodega.objects.all()
@@ -375,7 +425,7 @@ def generar_reporte(request):
     titulo = "Reportes "
 
     # Renderizar el template con los datos
-    reporte_html = render_to_string('reporte.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas,
+    reporte_html = render_to_string('reporte2.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas,
                                     'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
 
     # Crear una respuesta HTTP con el contenido HTML
@@ -385,7 +435,8 @@ def generar_reporte(request):
     return response
 
 
-def descargar_reporte_pdf(request):
+
+def descargar_reporte_pdf2(request):
     # Obtener los datos de la base de datos
     productos = Producto.objects.all()
     bodegas = Bodega.objects.all()
@@ -501,15 +552,15 @@ def descargar_reporte_pdf(request):
     p.drawString(50, y, "#")
     p.drawString(100, y, "Cantidad")
     p.drawString(200, y, "Fecha")
-    p.drawString(300, y, "Descripcion")
-    p.drawString(450, y, "producto")
+    p.drawString(410, y, "Descripcion")
+    p.drawString(510, y, "producto")
     y -= 20
     for devolucion in devoluciones:
         p.drawString(50, y, str(devolucion.id))
         p.drawString(100, y, str(devolucion.cantidadDevolucion))
         p.drawString(200, y, str(devolucion.fechaDevolucion))
-        p.drawString(300, y, str(devolucion.descripcionDevolucion))
-        p.drawString(450, y, str(devolucion.producto))
+        p.drawString(410, y, str(devolucion.descripcionDevolucion))
+        p.drawString(510, y, str(devolucion.producto))
         y -= 20
 
  # Espacio entre las secciones de datos
@@ -523,16 +574,16 @@ def descargar_reporte_pdf(request):
     p.drawString(50, y, "#")
     p.drawString(100, y, "Cantidad")
     p.drawString(200, y, "Fecha")
-    p.drawString(300, y, "Descripcion")
-    p.drawString(450, y, "producto")
+    p.drawString(410, y, "Descripcion")
+    p.drawString(510, y, "producto")
 
     y -= 20
     for entrada in entradas:
         p.drawString(50, y, str(entrada.id))
         p.drawString(100, y, str(entrada.cantidadEntrada))
         p.drawString(200, y, str(entrada.fechaEntrada))
-        p.drawString(300, y, str(entrada.descripcionEntrada))
-        p.drawString(450, y, str(entrada.producto))
+        p.drawString(410, y, str(entrada.descripcionEntrada))
+        p.drawString(510, y, str(entrada.producto))
         y -= 20
 
  # Espacio entre las secciones de datos
@@ -546,16 +597,16 @@ def descargar_reporte_pdf(request):
     p.drawString(50, y, "#")
     p.drawString(100, y, "Cantidad")
     p.drawString(200, y, "Fecha")
-    p.drawString(300, y, "Descripcion")
-    p.drawString(450, y, "producto")
+    p.drawString(410, y, "Descripcion")
+    p.drawString(510, y, "producto")
 
     y -= 20
     for salida in salidas:
         p.drawString(50, y, str(salida.id))
         p.drawString(100, y, str(salida.cantidadSalida))
         p.drawString(200, y, str(salida.fechaSalida))
-        p.drawString(300, y, str(salida.descripcionSalida))
-        p.drawString(450, y, str(salida.producto))
+        p.drawString(410, y, str(salida.descripcionSalida))
+        p.drawString(510, y, str(salida.producto))
         y -= 20
 
     # Guardar el contenido del PDF
@@ -569,18 +620,3 @@ def descargar_reporte_pdf(request):
     response.write(buffer.getvalue())
 
     return response
-
-
-def mostrar_reporte(request):
-    # Obtener los productos de la base de datos
-    productos = Producto.objects.all()
-    bodegas = Bodega.objects.all()
-    tiendas = Tienda.objects.all()
-    categorias = Categoria.objects.all()
-    devoluciones = Devolucion_Producto.objects.all()
-    entradas = Entrada_Producto.objects.all()
-    salidas = Salida_Producto.objects.all()
-
-    titulo = "Reportes"
-
-    return render(request, 'reporte.html', {'productos': productos, 'bodegas': bodegas, 'tiendas': tiendas, 'categorias': categorias, 'devoluciones': devoluciones, 'entradas': entradas, 'salidas': salidas, 'titulo': titulo})
