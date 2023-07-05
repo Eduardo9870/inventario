@@ -616,7 +616,7 @@ def descargar_reporte_pdf2(request):
     # Obtener el contenido del BytesIO y crear la respuesta HTTP
     buffer.seek(0)
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="reporte_productos.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="reporte_general.pdf"'
     response.write(buffer.getvalue())
 
     return response
