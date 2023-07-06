@@ -58,7 +58,7 @@ class Producto(models.Model):
 class Salida_Producto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     cantidadSalida = models.IntegerField()
-    fechaSalida = models.DateTimeField()
+    fechaSalida = models.DateField()
     descripcionSalida = models.CharField(max_length=100)
     
 
@@ -73,7 +73,7 @@ def actualizar_cantidad_producto(sender, instance, **kwargs):
 class Devolucion_Producto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     cantidadDevolucion = models.IntegerField()
-    fechaDevolucion = models.DateTimeField()
+    fechaDevolucion = models.DateField()
     descripcionDevolucion = models.CharField(max_length=100)
 
 
@@ -88,7 +88,7 @@ def actualizar_cantidad_producto_devolucion(sender, instance, **kwargs):
 class Entrada_Producto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     cantidadEntrada = models.IntegerField()
-    fechaEntrada = models.DateTimeField()
+    fechaEntrada = models.DateField()
     descripcionEntrada = models.CharField(max_length=100)
     
 

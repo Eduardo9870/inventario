@@ -4,7 +4,7 @@ from moduloApp.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from moduloApp.models import *
-from django.forms import ModelForm, TextInput, DateTimeInput, Textarea
+from django.forms import ModelForm, TextInput, DateInput, Textarea
 
 class CategoriaForm (forms.Form):
     nombreCategoria = forms.CharField(label="Nombre de la categoría", widget=forms.TextInput(attrs={"class": "form-control"}))
@@ -81,12 +81,6 @@ class TiendaModelForm(ModelForm):
         }
 
 
-class CustomUserCreationForm(UserCreationForm):
-    pass
-
-
-
-
 class DevolucionForm(forms.Form):
     nombreDevolucion = forms.CharField(
         label="Nombre del producto", widget=forms.TextInput(attrs={"class": "form-control"})
@@ -94,10 +88,10 @@ class DevolucionForm(forms.Form):
     cantidadDevolucion = forms.IntegerField(
         label="Cantidad de producto", widget=forms.NumberInput(attrs={"class": "form-control"})
     )
-    fechaDevolucion = forms.DateTimeField(
-        label="Fecha de devolución del producto", widget=forms.DateTimeInput(attrs={"class": "form-control"})
+    fechaDevolucion = forms.DateField(
+        label="Fecha de devolución del producto", widget=forms.DateInput(attrs={"class": "form-control"})
     )
-    motivoDevolucion = forms.CharField(
+    descripcionDevolucion = forms.CharField(
         label="Motivo de devolución", widget=forms.Textarea(attrs={"class": "form-control"})
     )
 
@@ -107,9 +101,9 @@ class DevolucionModelForm(ModelForm):
         fields = '__all__'
         widgets = {
             'nombreDevolucion': TextInput(attrs={"class": "form-control"}),
-            'fechaDevolucion': DateTimeInput(attrs={"class": "form-control"}),
+            'fechaDevolucion': DateInput(attrs={"class": "form-control"}),
             'cantidadDevolucion': TextInput(attrs={"class": "form-control"}),
-            'motivoDevolucion': Textarea(attrs={"class": "form-control"}),
+            'descripcionDevolucion': Textarea(attrs={"class": "form-control"}),
         }
 
 class CategoriaForm(forms.Form):
@@ -124,8 +118,8 @@ class EntradaForm(forms.Form):
     cantidadEntrada = forms.IntegerField(
         label="Cantidad de producto", widget=forms.NumberInput(attrs={"class": "form-control"})
     )
-    fechaEntrada = forms.DateTimeField(
-        label="Fecha de ingreso del producto", widget=forms.DateTimeInput(attrs={"class": "form-control"})
+    fechaEntrada = forms.DateField(
+        label="Fecha de ingreso del producto", widget=forms.DateInput(attrs={"class": "form-control"})
     )
     descripcionEntrada = forms.CharField(
         label="Descripción", widget=forms.Textarea(attrs={"class": "form-control"})
@@ -137,7 +131,7 @@ class EntradaModelForm(ModelForm):
         fields = '__all__'
         widgets = {
             'cantidadEntrada': TextInput(attrs={"class": "form-control"}),
-            'fechaEntrada': DateTimeInput(attrs={"class": "form-control"}),
+            'fechaEntrada': DateInput(attrs={"class": "form-control"}),
             'descripcionEntrada': Textarea(attrs={"class": "form-control"}),
         }
 
@@ -145,8 +139,8 @@ class SalidaForm(forms.Form):
     cantidadSalida = forms.IntegerField(
         label="Cantidad de producto", widget=forms.NumberInput(attrs={"class": "form-control"})
     )
-    fechaSalida = forms.DateTimeField(
-        label="Fecha de salida", widget=forms.DateTimeInput(attrs={"class": "form-control"})
+    fechaSalida = forms.DateField(
+        label="Fecha de salida", widget=forms.DateInput(attrs={"class": "form-control"})
     )
     descripcionSalida = forms.CharField(
         label="Descripción", widget=forms.Textarea(attrs={"class": "form-control"})
@@ -158,6 +152,6 @@ class SalidaModelForm(ModelForm):
         fields = '__all__'
         widgets = {
             'cantidadSalida': TextInput(attrs={"class": "form-control"}),
-            'fechaSalida': DateTimeInput(attrs={"class": "form-control"}),
+            'fechaSalida': DateInput(attrs={"class": "form-control"}),
             'descripcionSalida': Textarea(attrs={"class": "form-control"}),
         }
