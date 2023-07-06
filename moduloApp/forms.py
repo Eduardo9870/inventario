@@ -89,7 +89,7 @@ class DevolucionForm(forms.Form):
         label="Cantidad de producto", widget=forms.NumberInput(attrs={"class": "form-control"})
     )
     fechaDevolucion = forms.DateField(
-        label="Fecha de devolución del producto", widget=forms.DateInput(attrs={"class": "form-control"})
+        label="Fecha de devolución del producto", widget=forms.DateInput(attrs={"class": "form-control datepicker"})
     )
     descripcionDevolucion = forms.CharField(
         label="Motivo de devolución", widget=forms.Textarea(attrs={"class": "form-control"})
@@ -101,7 +101,7 @@ class DevolucionModelForm(ModelForm):
         fields = '__all__'
         widgets = {
             'nombreDevolucion': TextInput(attrs={"class": "form-control"}),
-            'fechaDevolucion': DateInput(attrs={"class": "form-control"}),
+            'fechaDevolucion': DateInput(attrs={"class": "form-control datepicker"}),
             'cantidadDevolucion': TextInput(attrs={"class": "form-control"}),
             'descripcionDevolucion': Textarea(attrs={"class": "form-control"}),
         }

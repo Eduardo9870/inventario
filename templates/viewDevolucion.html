@@ -29,6 +29,7 @@ Devolución de Productos
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">ID</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Nombre del producto devuelto</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Cantidad del producto devuelto</th>
+          <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Fecha de devolución del producto</th>
           <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Motivo de la devolución</th>
           <th class="text-center text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
         </tr>
@@ -39,6 +40,7 @@ Devolución de Productos
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.id }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.producto }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.cantidadDevolucion }}</td>
+          <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.fechaDevolucion }}</td>
           <td class="text-l text-center font-weight-bold mb-0">{{ devolucion.descripcionDevolucion }}</td>
           <td>
             <a href="/devolucion/editar/{{ devolucion.id }}" class="btn btn-warning"><i
