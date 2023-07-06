@@ -1,119 +1,75 @@
 {% extends "base.html" %}
 
 {% block title %}
-
 Salida Productos
-
 {% endblock title %}
 
 {% block content %}
-
 {% load static %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
 <div class="container text-center">
-
     <h1>{{ titulo }}</h1>
-
 </div>
 
 <div class="container d-flex justify-content-end mb-1">
-
-    <!-- Agregar bodega -->
-
+    <!-- Agregar salida -->
     <a href="/agregarSalida" class="btn btn-success btn-md mx-2">Agregar salida producto</a>
 
     <!-- Volver a la derecha -->
-
     <a href="/" class="btn btn-primary float-end mx-2">Volver</a>
-
 </div>
 
 <div class="container">
-
     {% if salidas %}
-
     <div class="card mb-4">
-
-        <table id="bodegas-table" class="table align-items-center mb-0">
-
+        <table id="salidas-table" class="table align-items-center mb-0">
             <thead>
-
                 <tr>
-
-                    <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Nombre del producto saliente</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Cantidad de producto saliente</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Fecha de salida del producto</th>
-                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripción de la salida del producto</th>
-                    <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
-
+                    <th>ID</th>
+                    <th>Nombre del producto saliente</th>
+                    <th>Cantidad de producto saliente</th>
+                    <th>Fecha de salida del producto</th>
+                    <th>Descripción de la salida del producto</th>
+                    <th>Acciones</th>
                 </tr>
-
             </thead>
-
             <tbody>
-
                 {% for salida in salidas %}
-
                 <tr>
-
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.id }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.producto }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.cantidadSalida }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.fechaSalida}}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ salida.descripcionSalida }}</td>
+                    <td class="text-center font-weight-bold">{{ salida.id }}</td>
+                    <td class="text-center font-weight-bold">{{ salida.producto }}</td>
+                    <td class="text-center font-weight-bold">{{ salida.cantidadSalida }}</td>
+                    <td class="text-center font-weight-bold">{{ salida.fechaSalida }}</td>
+                    <td class="text-center font-weight-bold">{{ salida.descripcionSalida }}</td>
                     <td>
-
                         <a href="/salida/edit/{{ salida.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-
                         <a href="/salida/delete/{{ salida.id }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta salida?')"><i class="bi bi-trash3"></i></a>
-
                     </td>
                 </tr>
-
                 {% endfor %}
-
             </tbody>
-
         </table>
-
     </div>
-
     {% else %}
-
     <div class="alert alert-danger text-center" role="alert">
-
         <h1 class="text-warning">No hay salidas registradas</h1>
-
     </div>
-
     {% endif %}
-
 </div>
 
-
-
-
-<!-- jQuery CDN -->
-
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
-<!-- JS DataTable -->
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-
-<!-- Inicialización JS -->
-
-<script>
-
-    $(document).ready(function () {
-
-        $('#example').DataTable();
-
-    });
-
-</script>
-
 {% endblock content %}
+
+{% block scripts %}
+<!-- JS DataTable -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#salidas-table').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.1/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
+{% endblock scripts %}

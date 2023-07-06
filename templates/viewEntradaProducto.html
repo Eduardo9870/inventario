@@ -6,6 +6,7 @@ Entrada Productos
 
 {% block content %}
 {% load static %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
 <div class="container text-center">
     <h1>{{ titulo }}</h1>
@@ -22,25 +23,25 @@ Entrada Productos
 
     {% if entradas %}
     <div class="card mb-4">
-        <table id="bodegas-table" class="table align-items-center mb-0">
+        <table id="entradas-table" class="table align-items-center mb-0">
             <thead>
                 <tr>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">ID</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Producto entrante</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder">Cantidad de producto entrante</th>
-                    <th class="text-center text-secondary text-xl font-weight-bolder ps-2">Fecha de entrada del producto</th>
-                    <th class="text-center text-uppercase text-secondary text-xl font-weight-bolder">Descripcion del producto entrante</th>
-                    <th class="text-uppercase text-uppercase text-secondary text-xl font-weight-bolder">Acciones</th>
+                    <th>ID</th>
+                    <th>Producto entrante</th>
+                    <th>Cantidad de producto entrante</th>
+                    <th>Fecha de entrada del producto</th>
+                    <th>Descripción del producto entrante</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entrada in entradas %}
                 <tr>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.id }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.producto }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.cantidadEntrada }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.fechaEntrada }}</td>
-                    <td class="text-l text-center font-weight-bold mb-0">{{ entrada.descripcionEntrada }}</td>
+                    <td class="text-center font-weight-bold">{{ entrada.id }}</td>
+                    <td class="text-center font-weight-bold">{{ entrada.producto }}</td>
+                    <td class="text-center font-weight-bold">{{ entrada.cantidadEntrada }}</td>
+                    <td class="text-center font-weight-bold">{{ entrada.fechaEntrada }}</td>
+                    <td class="text-center font-weight-bold">{{ entrada.descripcionEntrada }}</td>
                     <td>
                         <a href="/entrada/edit/{{ entrada.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                         <a href="/entrada/delete/{{ entrada.id }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta entrada?')"><i class="bi bi-trash3"></i></a>
@@ -61,10 +62,14 @@ Entrada Productos
 
 {% block scripts %}
 <!-- JS DataTable -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function () {
-        $('#bodegas-table').DataTable();
+        $('#entradas-table').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.1/i18n/Spanish.json"
+            }
+        });
     });
 </script>
 {% endblock scripts %}
