@@ -83,7 +83,7 @@ Tiendas
 
             <a href="/tienda/edit/{{ tienda.id }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
 
-            <a href="/tienda/delete/{{ tienda.id }}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+            <a href="/tienda/delete/{{ tienda.id }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta tienda?')"><i class="bi bi-trash3"></i></a>
 
           </td>
 
